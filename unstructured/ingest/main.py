@@ -65,8 +65,8 @@ class MainProcess:
 
         # Debugging tip: use the below line and comment out the mp.Pool loop
         # block to remain in single process
-        # self.doc_processor_fn(docs[0])
-
+        self.doc_processor_fn(docs[0])
+        
         with mp.Pool(processes=self.num_processes) as pool:
             results = pool.map(self.doc_processor_fn, docs)  # noqa: F841
 
@@ -302,4 +302,17 @@ def main(
 
 
 if __name__ == "__main__":
+    #logger.addHandler(logging.NullHandler())
+    #ch = logging.StreamHandler()
+    #logger.addHandler(ch)
+    #logger.setLevel(logging.DEBUG)
+    #ch.setLevel(logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(name)s %(levelname)s %(message)s")
+    logger = logging.getLogger("unstructured")
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter("%(asctime)s %(name)s %(levelname)s %(message)s"))
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
+    #import pdb; pdb.set_trace()
+    
     main()

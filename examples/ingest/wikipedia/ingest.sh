@@ -12,6 +12,7 @@ PYTHONPATH=. ./unstructured/ingest/main.py \
     --wikipedia-page-title "Open Source Software" \
     --structured-output-dir wikipedia-ingest-output \
     --num-processes 2 \
+    --reprocess \
     --verbose
 
 # Alternatively, you can call it using:

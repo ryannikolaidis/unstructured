@@ -74,7 +74,9 @@ class WikipediaIngestDoc(BaseIngestDoc):
         output_filename.parent.mkdir(parents=True, exist_ok=True)
         with open(output_filename, "w", encoding="utf8") as output_f:
             json.dump(self.isd_elems_no_filename, output_f, ensure_ascii=False, indent=2)
+        #import pdb; pdb.set_trace()
         logger.info(f"Wrote {output_filename}")
+        print(f"Wrote {output_filename}")
 
 
 class WikipediaIngestHTMLDoc(WikipediaIngestDoc):
