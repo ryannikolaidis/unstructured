@@ -6,98 +6,101 @@ ARG PIP_VERSION
 ARG UNSTRUCTURED
 
 RUN yum -y update && \
-  yum -y install poppler-utils xz-devel wget tar curl make which
+    yum -y install --setopt=tsflags=nodocs poppler-utils xz-devel wget tar curl make which epel-release && \
+    yum -y install --setopt=tsflags=nodocs pandoc && \
+    yum -y install --setopt=tsflags=nodocs centos-release-scl && \
+    yum -y install --setopt=tsflags=nodocs devtoolset-9-gcc* && \
+    yum -y install --setopt=tsflags=nodocs opencv opencv-devel opencv-python perl-core clang libpng-devel libtiff-devel libwebp-devel libjpeg-turbo-devel git-core libtool pkgconfig xz && \
+    yum -y install --setopt=tsflags=nodocs libreoffice openssl-devel bzip2-devel libffi-devel make git sqlite-devel && \
+    yum -y clean all && \
+    rm -rf /var/cache/yum/*
 
-# Enable the EPEL repository
-RUN yum install -y epel-release && yum clean all
-
-# Install pandoc
-RUN yum install -y pandoc && yum clean all
-
-# # Install compilers
-# RUN yum install -y centos-release-scl && \
-#     yum install -y devtoolset-9-gcc devtoolset-9-gcc-c++ wget tar curl make xz-devel && \
-#     scl enable devtoolset-9 -- sh -c 'echo "source /opt/rh/devtoolset-9/enable" >> /etc/profile.d/devtoolset-9.sh'
-
-# Note(yuming): Install gcc & g++ ≥ 5.4 for Detectron2 and Tesseract requirement
-RUN yum -y update
-RUN yum -y install centos-release-scl
-RUN yum -y install devtoolset-9-gcc*
-SHELL [ "/usr/bin/scl", "enable", "devtoolset-9"]
-
-# Install Tessaract
-RUN set -ex && \
-    pac="yum" && \
-    $sudo "$pac" install -y opencv opencv-devel opencv-python perl-core clang libpng-devel libtiff-devel libwebp-devel libjpeg-turbo-devel git-core libtool pkgconfig xz && \
+# Install leptonica
+RUN cd /tmp && \
     wget https://github.com/DanBloomberg/leptonica/releases/download/1.75.1/leptonica-1.75.1.tar.gz && \
     tar -xzvf leptonica-1.75.1.tar.gz && \
-    cd leptonica-1.75.1 || exit && \
-    ./configure && make && $sudo make install && \
+    cd leptonica-1.75.1 && \
+    ./configure && \
+    make && \
+    make install && \
     cd .. && \
+    rm -rf leptonica-1.75.1 leptonica-1.75.1.tar.gz
+
+# Install autoconf-archive
+RUN cd /tmp && \
     wget http://mirror.squ.edu.om/gnu/autoconf-archive/autoconf-archive-2017.09.28.tar.xz && \
     tar -xvf autoconf-archive-2017.09.28.tar.xz && \
-    cd autoconf-archive-2017.09.28 || exit && \
-    ./configure && make && $sudo make install && \
-    $sudo cp m4/* /usr/share/aclocal && \
+    cd autoconf-archive-2017.09.28 && \
+    ./configure && \
+    make && \
+    make install && \
+    cp m4/* /usr/share/aclocal && \
     cd .. && \
-    git clone --depth 1  https://github.com/tesseract-ocr/tesseract.git tesseract-ocr && \
-    cd tesseract-ocr || exit && \
+    rm -rf autoconf-archive-2017.09.28 autoconf-archive-2017.09.28.tar.xz
+
+# Install Tesseract
+RUN cd /tmp && \
+    git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git tesseract-ocr && \
+    cd tesseract-ocr && \
     export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && \
-    scl enable devtoolset-9 -- sh -c './autogen.sh && ./configure && make && make install' && \
+    ./autogen.sh && \
+    ./configure && \
+    make && \
+    make install && \
     cd .. && \
-    git clone https://github.com/tesseract-ocr/tessdata.git && \
-    $sudo cp tessdata/*.traineddata /usr/local/share/tessdata
+    rm -rf tesseract-ocr
 
-# Install 
-RUN yum -y update && \
-  # MS Office docs:
-  yum -y install libreoffice && \
-  yum -y install openssl-devel bzip2-devel libffi-devel make git sqlite-devel && \
-  curl -O https://www.python.org/ftp/python/3.8.15/Python-3.8.15.tgz && tar -xzf Python-3.8.15.tgz && \
-  cd Python-3.8.15/ && ./configure --enable-optimizations && make altinstall && \
-  cd .. && rm -rf Python-3.8.15* && \
-  ln -s /usr/local/bin/python3.8 /usr/local/bin/python3
+# Install Python
+RUN cd /tmp && \
+    curl -O https://www.python.org/ftp/python/3.8.15/Python-3.8.15.tgz && \
+    tar -xzf Python-3.8.15.tgz && \
+    cd Python-3.8.15 && \
+    ./configure --enable-optimizations && \
+    make altinstall && \
+    cd .. && \
+    rm -rf Python-3.8.15* && \
+    ln -s /usr/local/bin/python3.8 /usr/local/bin/python3
 
-# create a home directory
+# Create a home directory
 ENV HOME /home/
 
 WORKDIR ${HOME}
-RUN mkdir ${HOME}/.ssh && chmod go-rwx ${HOME}/.ssh \
-  &&  ssh-keyscan -t rsa github.com >> /home/.ssh/known_hosts
 
+RUN mkdir ${HOME}/.ssh && \
+    chmod go-rwx ${HOME}/.ssh && \
+    ssh-keyscan -t rsa github.com >> /
+
+# Set environment variables
 ENV PYTHONPATH="${PYTHONPATH}:${HOME}"
 ENV PATH="/home/usr/.local/bin:${PATH}"
 
+# Copy files
 COPY example-docs example-docs
-
 COPY requirements/base.txt requirements-base.txt
 COPY requirements/test.txt requirements-test.txt
 COPY requirements/huggingface.txt requirements-huggingface.txt
 COPY requirements/dev.txt requirements-dev.txt
-# PDFs and images
 COPY requirements/local-inference.txt requirements-local-inference.txt
 
+# Install Python packages
+RUN python3.8 -m pip install pip==${PIP_VERSION} && \
+    python3.8 -m pip install --no-cache -r requirements-base.txt && \
+    python3.8 -m pip install --no-cache -r requirements-test.txt && \
+    python3.8 -m pip install --no-cache -r requirements-huggingface.txt && \
+    python3.8 -m pip install --no-cache -r requirements-dev.txt && \
+    python3.8 -m pip install --no-cache -r requirements-local-inference.txt && \
+    python3.8 -m pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@v0.6#egg=detectron2"
 
-RUN python3.8 -m pip install pip==${PIP_VERSION} \
-  && pip install --no-cache -r requirements-base.txt \
-  && pip install --no-cache -r requirements-test.txt \
-  && pip install --no-cache -r requirements-huggingface.txt \
-  && pip install --no-cache -r requirements-dev.txt \
-  # PDFs and images
-  && pip install --no-cache -r requirements-local-inference.txt \
-  # PDFs
-  && pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@v0.6#egg=detectron2"
-
-# Clear up space so we don't run out of room
-RUN rm -rf /var/cache/yum/* \
-  && yum clean all \
-  && rm -rf /tmp/* \
-  && rm -rf /var/tmp/* \
-  && rm -rf /usr/share/doc/* \
-  && rm -rf /usr/share/man/* \
-  && rm -rf /usr/share/info/* \
-  && rm -rf /usr/share/locale/*/LC_MESSAGES/*
+# Clean up
+RUN rm -rf /var/cache/yum/* && \
+    yum -y clean all && \
+    rm -rf /tmp/* && \
+    rm -rf /usr/share/doc/* && \
+    rm -rf /usr/share/man/* && \
+    rm -rf /usr/share/info/* && \
+    rm -rf /usr/share/locale/*/LC_MESSAGES/*
 
 COPY unstructured unstructured
 
+# Set default command
 CMD ["/bin/bash"]
