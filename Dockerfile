@@ -12,6 +12,7 @@ RUN yum -y update && \
     yum -y install --setopt=tsflags=nodocs devtoolset-9-gcc* && \
     yum -y install --setopt=tsflags=nodocs opencv opencv-devel opencv-python perl-core clang libpng-devel libtiff-devel libwebp-devel libjpeg-turbo-devel git-core libtool pkgconfig xz && \
     yum -y install --setopt=tsflags=nodocs libreoffice openssl-devel bzip2-devel libffi-devel make git sqlite-devel && \
+    yum -y install --setopt=tsflags=nodocs gcc-c++ && \
     yum -y clean all && \
     rm -rf /var/cache/yum/*
 
@@ -44,7 +45,7 @@ RUN cd /tmp && \
     cd tesseract-ocr && \
     export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig && \
     ./autogen.sh && \
-    ./configure && \
+    ./configure --disable-shared && \
     make && \
     make install && \
     cd .. && \
