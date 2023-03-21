@@ -6,7 +6,7 @@ on:
 env:
   DOCKER_REGISTRY: "quay.io"
   DOCKER_NAMESPACE: "unstructured-io"
-  IMAGE_PLATFORMS: linux/amd64,linux/arm64
+  IMAGE_PLATFORMS: linux/arm64
   PACKAGE: "unstructured"
   PIP_VERSION: "22.2.1"
   BUILD_TYPE_TAG_SUFFIX: ""
