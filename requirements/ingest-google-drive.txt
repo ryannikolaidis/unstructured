@@ -25,6 +25,10 @@ certifi==2022.12.7
     #   httpx
     #   requests
     #   unstructured (setup.py)
+chardet==5.1.0
+    # via
+    #   -r requirements/base.txt
+    #   unstructured (setup.py)
 charset-normalizer==3.1.0
     # via
     #   -r requirements/base.txt
@@ -47,7 +51,7 @@ et-xmlfile==1.1.0
     #   openpyxl
 google-api-core==2.11.0
     # via google-api-python-client
-google-api-python-client==2.80.0
+google-api-python-client==2.82.0
     # via unstructured (setup.py)
 google-auth==2.16.2
     # via
@@ -56,7 +60,7 @@ google-auth==2.16.2
     #   google-auth-httplib2
 google-auth-httplib2==0.1.0
     # via google-api-python-client
-googleapis-common-protos==1.58.0
+googleapis-common-protos==1.59.0
     # via google-api-core
 h11==0.14.0
     # via
@@ -66,7 +70,7 @@ httpcore==0.16.3
     # via
     #   -r requirements/base.txt
     #   httpx
-httplib2==0.21.0
+httplib2==0.22.0
     # via
     #   google-api-python-client
     #   google-auth-httplib2
@@ -80,7 +84,7 @@ idna==3.4
     #   anyio
     #   requests
     #   rfc3986
-importlib-metadata==6.0.0
+importlib-metadata==6.1.0
     # via
     #   -r requirements/base.txt
     #   markdown
@@ -111,7 +115,7 @@ numpy==1.23.5
     #   -r requirements/base.txt
     #   argilla
     #   pandas
-openpyxl==3.1.1
+openpyxl==3.1.2
     # via
     #   -r requirements/base.txt
     #   unstructured (setup.py)
@@ -147,6 +151,10 @@ pygments==2.14.0
     # via
     #   -r requirements/base.txt
     #   rich
+pypandoc==1.11
+    # via
+    #   -r requirements/base.txt
+    #   unstructured (setup.py)
 pyparsing==3.0.9
     # via httplib2
 python-dateutil==2.8.2
@@ -212,7 +220,7 @@ typing-extensions==4.5.0
     #   rich
 uritemplate==4.1.1
     # via google-api-python-client
-urllib3==1.26.14
+urllib3==1.26.15
     # via
     #   -r requirements/base.txt
     #   requests

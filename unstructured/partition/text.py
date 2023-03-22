@@ -1,6 +1,8 @@
 import re
 from typing import IO, List, Optional
 
+import chardet
+
 from unstructured.cleaners.core import clean_bullets
 from unstructured.documents.elements import (
     Address,
@@ -19,6 +21,14 @@ from unstructured.partition.text_type import (
     is_possible_title,
     is_us_city_state_zip,
 )
+
+
+def decode_content(content: bytes) -> str:
+    # Detect encoding using chardet
+    detected_encoding = chardet.detect(content)['encoding']
+    if detected_encoding is None:
+        raise ValueError('Failed to detect encoding')
+    return content.decode(detected_encoding)
 
 
 def split_by_paragraph(content: str) -> List[str]:
@@ -56,10 +66,13 @@ def partition_text(
 
     elif file is not None:
         file_text = file.read()
+        # If the file is a binary file, decode it
+        if isinstance(file_text, bytes):
+            file_text = decode_content(file_text)
 
     elif text is not None:
         file_text = str(text)
-
+    
     file_content = split_by_paragraph(file_text)
 
     elements: List[Element] = []

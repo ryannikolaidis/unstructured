@@ -4,9 +4,6 @@
 #
 #    pip-compile --output-file=requirements/base.txt
 #
---extra-index-url https://pypi.ngc.nvidia.com
---trusted-host pypi.ngc.nvidia.com
-
 anyio==3.6.2
     # via httpcore
 argilla==1.4.0
@@ -19,6 +16,8 @@ certifi==2022.12.7
     #   httpx
     #   requests
     #   unstructured (setup.py)
+chardet==5.1.0
+    # via unstructured (setup.py)
 charset-normalizer==3.1.0
     # via requests
 click==8.1.3
@@ -40,7 +39,7 @@ idna==3.4
     #   anyio
     #   requests
     #   rfc3986
-importlib-metadata==6.0.0
+importlib-metadata==6.1.0
     # via markdown
 joblib==1.2.0
     # via nltk
@@ -59,7 +58,7 @@ numpy==1.23.5
     # via
     #   argilla
     #   pandas
-openpyxl==3.1.1
+openpyxl==3.1.2
     # via unstructured (setup.py)
 packaging==23.0
     # via argilla
@@ -110,7 +109,7 @@ typing-extensions==4.5.0
     # via
     #   pydantic
     #   rich
-urllib3==1.26.14
+urllib3==1.26.15
     # via requests
 wrapt==1.14.1
     # via

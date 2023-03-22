@@ -23,6 +23,10 @@ certifi==2022.12.7
     #   httpx
     #   requests
     #   unstructured (setup.py)
+chardet==5.1.0
+    # via
+    #   -r requirements/base.txt
+    #   unstructured (setup.py)
 charset-normalizer==3.1.0
     # via
     #   -r requirements/base.txt
@@ -61,7 +65,7 @@ idna==3.4
     #   anyio
     #   requests
     #   rfc3986
-importlib-metadata==6.0.0
+importlib-metadata==6.1.0
     # via
     #   -r requirements/base.txt
     #   markdown
@@ -92,7 +96,7 @@ numpy==1.23.5
     #   -r requirements/base.txt
     #   argilla
     #   pandas
-openpyxl==3.1.1
+openpyxl==3.1.2
     # via
     #   -r requirements/base.txt
     #   unstructured (setup.py)
@@ -122,6 +126,10 @@ pygments==2.14.0
     # via
     #   -r requirements/base.txt
     #   rich
+pypandoc==1.11
+    # via
+    #   -r requirements/base.txt
+    #   unstructured (setup.py)
 python-dateutil==2.8.2
     # via
     #   -r requirements/base.txt
@@ -182,7 +190,7 @@ typing-extensions==4.5.0
     #   rich
 update-checker==0.18.0
     # via praw
-urllib3==1.26.14
+urllib3==1.26.15
     # via
     #   -r requirements/base.txt
     #   requests

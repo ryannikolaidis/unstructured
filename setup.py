@@ -51,6 +51,7 @@ setup(
     },
     install_requires=[
         "argilla",
+        "chardet",
         "lxml",
         "nltk",
         "openpyxl",
