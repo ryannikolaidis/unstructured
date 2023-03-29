@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 env:
-  DOCKER_REPOSITORY: quay.io/unstructured-io/unstructured
-  DOCKER_BUILD_REPOSITORY: quay.io/unstructured-io/build-unstructured
+  DOCKER_REPOSITORY: quay.io/unstructured-io/test-unstructured
+  DOCKER_BUILD_REPOSITORY: quay.io/unstructured-io/test-unstructured
   PIP_VERSION: "22.2.1"
   PYTHON_VERSION: "3.8"
 
@@ -39,14 +42,14 @@ jobs:
           --build-arg BUILDKIT_INLINE_CACHE=1 \
           --progress plain \
           --cache-from $DOCKER_BUILD_REPOSITORY:amd \
-          -t $DOCKER_BUILD_REPOSITORY:amd-$SHORT_SHA .
+          -t $DOCKER_BUILD_REPOSITORY:amd-${{ env.SHORT_SHA }} .
     - name: Test AMD image
       run: |
-        DOCKER_PLATFORM="linux/amd64" DOCKER_IMAGE="$DOCKER_BUILD_REPOSITORY:amd-$SHORT_SHA" make docker-test 
+        DOCKER_PLATFORM="linux/amd64" DOCKER_IMAGE="$DOCKER_BUILD_REPOSITORY:amd-${{ env.SHORT_SHA }}" make docker-test 
     - name: Push AMD image
       run: |
         # write to the build repository to cache for the publish-images job
-        docker push $DOCKER_BUILD_REPOSITORY:amd-$SHORT_SHA
+        docker push $DOCKER_BUILD_REPOSITORY:amd-${{ env.SHORT_SHA }}
   build-arm:
     runs-on: ubuntu-latest
     needs: set-short-sha
@@ -69,15 +72,15 @@ jobs:
           --build-arg BUILDKIT_INLINE_CACHE=1 \
           --progress plain \
           --cache-from $DOCKER_BUILD_REPOSITORY:arm \
-          -t $DOCKER_BUILD_REPOSITORY:arm-$SHORT_SHA .
+          -t $DOCKER_BUILD_REPOSITORY:arm-${{ env.SHORT_SHA }} .
     - name: Test ARM image
       run: |
         # only run a subset of tests on ARM, since they take a long time with emulation
-        DOCKER_PLATFORM="linux/arm64" DOCKER_IMAGE="$DOCKER_BUILD_REPOSITORY:arm-$SHORT_SHA" make docker-test TEST_NAME=partition/test_text.py
+        DOCKER_PLATFORM="linux/arm64" DOCKER_IMAGE="$DOCKER_BUILD_REPOSITORY:arm-${{ env.SHORT_SHA }}" make docker-test TEST_NAME=partition/test_text.py
     - name: Push ARM image
       run: |
         # write to the build repository to cache for the publish-images job
-        docker push $DOCKER_BUILD_REPOSITORY:arm-$SHORT_SHA
+        docker push $DOCKER_BUILD_REPOSITORY:arm-${{ env.SHORT_SHA }}
   publish-images:
     runs-on: ubuntu-latest
     needs: [set-short-sha, build-amd, build-arm]
@@ -93,23 +96,23 @@ jobs:
         password: ${{ secrets.QUAY_IO_ROBOT_TOKEN }}
     - name: Pull AMD image
       run: |
-        docker pull $DOCKER_BUILD_REPOSITORY:amd-$SHORT_SHA
+        docker pull $DOCKER_BUILD_REPOSITORY:amd-${{ env.SHORT_SHA }}
     - name: Pull ARM image
       run: |
-        docker pull $DOCKER_BUILD_REPOSITORY:arm-$SHORT_SHA
+        docker pull $DOCKER_BUILD_REPOSITORY:arm-${{ env.SHORT_SHA }}
     - name: Push latest build tags for AMD and ARM
       run: |
         # these are used to construct the final manifest but also cache-from in subsequent runs
-        docker tag $DOCKER_BUILD_REPOSITORY:amd-$SHORT_SHA $DOCKER_BUILD_REPOSITORY:amd
+        docker tag $DOCKER_BUILD_REPOSITORY:amd-${{ env.SHORT_SHA }} $DOCKER_BUILD_REPOSITORY:amd
         docker push $DOCKER_BUILD_REPOSITORY:amd
-        docker tag $DOCKER_BUILD_REPOSITORY:arm-$SHORT_SHA $DOCKER_BUILD_REPOSITORY:arm
+        docker tag $DOCKER_BUILD_REPOSITORY:arm-${{ env.SHORT_SHA }} $DOCKER_BUILD_REPOSITORY:arm
         docker push $DOCKER_BUILD_REPOSITORY:arm
     - name: Push multiarch manifest
       run: |
         docker manifest create ${DOCKER_REPOSITORY}:latest $DOCKER_BUILD_REPOSITORY:amd $DOCKER_BUILD_REPOSITORY:arm
         docker manifest push $DOCKER_REPOSITORY:latest
-        docker manifest create ${DOCKER_REPOSITORY}:$SHORT_SHA $DOCKER_BUILD_REPOSITORY:amd $DOCKER_BUILD_REPOSITORY:arm
-        docker manifest push $DOCKER_REPOSITORY:$SHORT_SHA
+        docker manifest create ${DOCKER_REPOSITORY}:${{ env.SHORT_SHA }} $DOCKER_BUILD_REPOSITORY:amd $DOCKER_BUILD_REPOSITORY:arm
+        docker manifest push $DOCKER_REPOSITORY:${{ env.SHORT_SHA }}
         VERSION=$(grep -Po '(?<=__version__ = ")[^"]*' unstructured/__version__.py)
         docker manifest create ${DOCKER_REPOSITORY}:$VERSION $DOCKER_BUILD_REPOSITORY:amd $DOCKER_BUILD_REPOSITORY:arm
         docker manifest push $DOCKER_REPOSITORY:$VERSION
