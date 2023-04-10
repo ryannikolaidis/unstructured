@@ -3,6 +3,7 @@
 FROM rockylinux:8.7.20230215
 
 ARG PIP_VERSION
+ARG TARGET_ARCH=amd
 
 # Install dependency packages
 RUN dnf -y update && \
@@ -12,6 +13,34 @@ RUN dnf -y update && \
   dnf -y install gcc
 
 ENV PATH "$PATH:/usr/bin/gcc"
+WORKDIR /
+# Install PaddlePaddle and PaddleOCR
+RUN dnf -y install patchelf  && \
+  dnf -y install cmake  && \
+  export PYTHON_LIBRARY=/usr/local/lib/libpython3.8.a  && \
+  export PYTHON_LIBRARY=/usr/local/lib/python3.8  && \
+  export PYTHON_INCLUDE_DIRS=/usr/local/include/python3.8/ && \
+  export PATH=/usr/local/bin/python3.8:$PATH && \
+  git clone https://github.com/PaddlePaddle/Paddle.git && \
+  cd Paddle && \
+  git checkout release/2.4 && \
+  mkdir build && cd build && \
+  if [ "${TARGET_ARCH}" = "amd" ]; \
+      then PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIRS} \
+          -DPYTHON_LIBRARY=${PYTHON_LIBRARY} -DWITH_GPU=OFF -DWITH_ARM=OFF; \
+      else PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIRS} \
+          -DPYTHON_LIBRARY=${PYTHON_LIBRARY} -DWITH_GPU=OFF \
+          -DWITH_AVX=OFF -DWITH_ARM=ON; \
+      fi && \
+  make ${TARGET:+TARGET=$TARGET} -j$(nproc) && \
+  cd /Paddle/build/python/dist && \
+  if [ "${TARGET_ARCH}" = "amd" ]; \
+      then pip install -U paddlepaddle-0.0.0-cp38-cp38-linux_x86_64.whl; \
+      else pip install -U paddlepaddle-0.0.0-cp38-cp38-linux_aarch64.whl; \
+      fi && \
+  cd / && \
+  rm -rf Paddle && \
+  pip install unstructured.PaddleOCR
 
 # Install Python
 RUN dnf -y install openssl-devel bzip2-devel libffi-devel make git sqlite-devel && \
@@ -60,6 +89,8 @@ RUN dnf -y install python3-devel && \
   pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
   # trigger update of models cache
   python3.8 -c "from transformers.utils import move_cache; move_cache()" 
+
+
 
 COPY example-docs example-docs
 COPY unstructured unstructured
