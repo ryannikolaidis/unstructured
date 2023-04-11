@@ -71,7 +71,7 @@ RUN dnf -y install patchelf cmake git gcc-c++ && \
   cd Paddle && \
   git checkout release/2.4 && \
   mkdir build && cd build && \
-  cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8 \
+  PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8 \
   -DPYTHON_LIBRARY=/usr/lib64/libpython3.8.so \
   -DWITH_GPU=OFF -DWITH_AVX=OFF -DWITH_ARM=ON
 RUN cd /Paddle/build; make TARGET=ARMV8 -j4
