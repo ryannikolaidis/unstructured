@@ -8,7 +8,10 @@ ARG TARGET_ARCH=arm
 RUN dnf -y update && \
   dnf -y install poppler-utils xz-devel wget make which && \
   dnf install -y epel-release && \
-  dnf --enablerepo=powertools install -y pandoc-common && \
+  dnf -y install dnf-plugins-core && \
+  dnf config-manager --enable crb && \
+  # Note(rniko): we must enable crb before installing pandoc
+  dnf install -y pandoc-common && \
   dnf -y install gcc
 
 ENV PATH "$PATH:/usr/bin/gcc"
