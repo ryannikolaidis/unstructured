@@ -37,6 +37,7 @@ RUN mkdir ${HOME}/.ssh && chmod go-rwx ${HOME}/.ssh \
 ENV PYTHONPATH="${PYTHONPATH}:${HOME}"
 ENV PATH="/home/usr/.local/bin:${PATH}"
 
+RUN python3.8 -m pip install pip==${PIP_VERSION}
 RUN pip install paddlepaddle -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
 RUN  pip install --no-cache unstructured.PaddleOCR
 
