@@ -38,8 +38,11 @@ RUN mkdir ${HOME}/.ssh && chmod go-rwx ${HOME}/.ssh \
 ENV PYTHONPATH="${PYTHONPATH}:${HOME}"
 ENV PATH="/home/usr/.local/bin:${PATH}"
 
+RUN pip install paddlepaddle -i https://pypi.tuna.tsinghua.edu.cn/simple/ 
+RUN  pip install --no-cache unstructured.PaddleOCR
+
 # Install PaddlePaddle and PaddleOCR
-WORKDIR /
+# WORKDIR /
 # RUN if [ "$TARGET_ARCH" = "amd" ]; then \
 #         pip install paddlepaddle -i https://pypi.tuna.tsinghua.edu.cn/simple/ ; \
 #     else \
@@ -63,17 +66,17 @@ WORKDIR /
 #     -DWITH_AVX=OFF -DWITH_ARM=ON
 # RUN cd /Paddle/build; make -j$(nproc)
 
-RUN dnf -y install patchelf cmake git gcc-c++ && \
-    dnf -y install python3-devel && \
-    git clone https://github.com/PaddlePaddle/Paddle.git && \
-    python3.8 -m pip install pip==${PIP_VERSION} && \
-    cd Paddle && \
-    git checkout release/2.4 && \
-    mkdir build && cd build && \
-    cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8 \
-    -DPYTHON_LIBRARY=/usr/lib64/libpython3.8.so \
-    -DWITH_GPU=OFF -DWITH_AVX=OFF -DWITH_ARM=ON && \
-    make TARGET=ARMV8 -j4
+# RUN dnf -y install patchelf cmake git gcc-c++ && \
+#     dnf -y install python3-devel && \
+#     git clone https://github.com/PaddlePaddle/Paddle.git && \
+#     python3.8 -m pip install pip==${PIP_VERSION} && \
+#     cd Paddle && \
+#     git checkout release/2.4 && \
+#     mkdir build && cd build && \
+#     cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8 \
+#     -DPYTHON_LIBRARY=/usr/lib64/libpython3.8.so \
+#     -DWITH_GPU=OFF -DWITH_AVX=OFF -DWITH_ARM=ON && \
+#     make TARGET=ARMV8 -j4
 # RUN    cd /Paddle/build/python/dist 
 # RUN    pip install -U paddlepaddle-0.0.0-cp38-cp38-linux_aarch64.whl 
 # RUN    cd / 
@@ -81,34 +84,34 @@ RUN dnf -y install patchelf cmake git gcc-c++ && \
 #     # fi 
 # RUN  pip install --no-cache unstructured.PaddleOCR
 
-# # Copy and install Unstructured
-# COPY requirements requirements
+# Copy and install Unstructured
+COPY requirements requirements
 
-# RUN dnf -y install python3-devel && \
-#   pip install --no-cache -r requirements/base.txt && \
-#   pip install --no-cache -r requirements/test.txt && \
-#   pip install --no-cache -r requirements/huggingface.txt && \
-#   pip install --no-cache -r requirements/dev.txt && \
-#   pip install --no-cache -r requirements/ingest-azure.txt && \
-#   pip install --no-cache -r requirements/ingest-github.txt && \
-#   pip install --no-cache -r requirements/ingest-gitlab.txt && \
-#   pip install --no-cache -r requirements/ingest-google-drive.txt && \
-#   pip install --no-cache -r requirements/ingest-reddit.txt && \
-#   pip install --no-cache -r requirements/ingest-s3.txt && \
-#   pip install --no-cache -r requirements/ingest-wikipedia.txt && \
-#   pip install --no-cache -r requirements/local-inference.txt && \
-#   dnf install -y gcc-c++ && \
-#   # we need this workaround for an issue where installing detectron2 for non-ROCM builds raises unhandled NotADirectoryError exception
-#   export PATH=$PATH:hipconfig && \
-#   pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
-#   # trigger update of models cache
-#   python3.8 -c "from transformers.utils import move_cache; move_cache()" 
+RUN dnf -y install python3-devel && \
+  pip install --no-cache -r requirements/base.txt && \
+  pip install --no-cache -r requirements/test.txt && \
+  pip install --no-cache -r requirements/huggingface.txt && \
+  pip install --no-cache -r requirements/dev.txt && \
+  pip install --no-cache -r requirements/ingest-azure.txt && \
+  pip install --no-cache -r requirements/ingest-github.txt && \
+  pip install --no-cache -r requirements/ingest-gitlab.txt && \
+  pip install --no-cache -r requirements/ingest-google-drive.txt && \
+  pip install --no-cache -r requirements/ingest-reddit.txt && \
+  pip install --no-cache -r requirements/ingest-s3.txt && \
+  pip install --no-cache -r requirements/ingest-wikipedia.txt && \
+  pip install --no-cache -r requirements/local-inference.txt && \
+  dnf install -y gcc-c++ && \
+  # we need this workaround for an issue where installing detectron2 for non-ROCM builds raises unhandled NotADirectoryError exception
+  export PATH=$PATH:hipconfig && \
+  pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
+  # trigger update of models cache
+  python3.8 -c "from transformers.utils import move_cache; move_cache()" 
 
-# COPY example-docs example-docs
-# COPY unstructured unstructured
+COPY example-docs example-docs
+COPY unstructured unstructured
 
-# RUN python3.8 -c "import nltk; nltk.download('punkt')" && \
-#   python3.8 -c "import nltk; nltk.download('averaged_perceptron_tagger')" && \
-#   python3.8 -c "from unstructured.ingest.doc_processor.generalized import initialize; initialize()"
+RUN python3.8 -c "import nltk; nltk.download('punkt')" && \
+  python3.8 -c "import nltk; nltk.download('averaged_perceptron_tagger')" && \
+  python3.8 -c "from unstructured.ingest.doc_processor.generalized import initialize; initialize()"
 
-# CMD ["/bin/bash"]
+CMD ["/bin/bash"]
