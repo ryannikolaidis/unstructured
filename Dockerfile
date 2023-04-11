@@ -67,6 +67,9 @@ RUN dnf -y install patchelf cmake git gcc-c++ && \
     dnf -y install python3-devel && \
     git clone https://github.com/PaddlePaddle/Paddle.git && \
     python3.8 -m pip install pip==${PIP_VERSION} && \
+    pip install --no-cache numpy && \
+    pip install --no-cache wheel && \
+    pip install --no-cache protobuf && \
     cd Paddle && \
     git checkout release/2.4 && \
     mkdir build && cd build && \

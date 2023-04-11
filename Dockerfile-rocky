@@ -1,0 +1,3 @@
+# syntax=docker/dockerfile:experimental
+
+FROM rockylinux:8.7.20230215
