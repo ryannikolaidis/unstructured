@@ -46,6 +46,7 @@ WORKDIR /
 ENV PYTHON_LIBRARY="/usr/local/lib/python3.8"
 ENV PYTHON_INCLUDE_DIRS="/usr/local/include/python3.8"
 ENV PATH="/usr/local/bin/python3.8:${PATH}"
+# RUN env
 RUN dnf install -y gcc-c++ && \
   dnf -y install git && \
   dnf -y install patchelf  && \
@@ -61,7 +62,8 @@ RUN dnf install -y gcc-c++ && \
   PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIRS} \
     -DPYTHON_LIBRARY=${PYTHON_LIBRARY} -DWITH_GPU=OFF \
     -DWITH_AVX=OFF -DWITH_ARM=ON
-# RUN cd /Paddle/build; make -j$(nproc)
+USER root
+RUN cd /Paddle/build; make -d -j$(nproc)
 
 # RUN dnf -y install patchelf cmake git gcc-c++ && \
 #   dnf -y install python3-devel && \

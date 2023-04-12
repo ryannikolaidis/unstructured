@@ -1,4 +1,4 @@
-name: Build And Push Docker Image
+name: Test Build
 
 on:
   push:
@@ -75,7 +75,7 @@ jobs:
           --build-arg PIP_VERSION=$PIP_VERSION \
           --build-arg BUILDKIT_INLINE_CACHE=1 \
           --progress plain \
-          --cache-from $DOCKER_BUILD_REPOSITORY:arm \
+          --cache-from $DOCKER_BUILD_REPOSITORY:rocky-8-python \
           -t $DOCKER_BUILD_REPOSITORY:arm-$SHORT_SHA .
     # - name: Test ARM image
     #   run: |
