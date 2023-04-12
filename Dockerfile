@@ -43,38 +43,38 @@ WORKDIR /
 # RUN if [ "$TARGET_ARCH" = "amd" ]; then \
 #         pip install paddlepaddle -i https://pypi.tuna.tsinghua.edu.cn/simple/ ; \
 #     else \
-# RUN dnf install -y gcc-c++ && \
-#   dnf -y install git && \
-#   dnf -y install patchelf  && \
-#   dnf -y install cmake  && \
-#   python3.8 -m pip install pip==${PIP_VERSION} && \
-#   pip install --no-cache numpy && \
-#   pip install --no-cache wheel && \
-#   pip install --no-cache protobuf && \
-#   export PYTHON_LIBRARY=/usr/local/lib/python3.8  && \
-#   export PYTHON_INCLUDE_DIRS=/usr/local/include/python3.8/ && \
-#   export PATH=/usr/local/bin/python3.8:$PATH && \
-#   git clone https://github.com/PaddlePaddle/Paddle.git && \
-#   cd Paddle; git checkout release/2.4 && \
-#   mkdir build && \
-#   cd build && \
-#   PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIRS} \
-#     -DPYTHON_LIBRARY=${PYTHON_LIBRARY} -DWITH_GPU=OFF \
-#     -DWITH_AVX=OFF -DWITH_ARM=ON
-# RUN cd /Paddle/build; make -j$(nproc)
-
-RUN dnf -y install patchelf cmake git gcc-c++ && \
-  dnf -y install python3-devel && \
-  git clone https://github.com/PaddlePaddle/Paddle.git && \
+ENV PYTHON_LIBRARY="/usr/local/lib/python3.8"
+ENV PYTHON_INCLUDE_DIRS="/usr/local/include/python3.8"
+ENV PATH="/usr/local/bin/python3.8:${PATH}"
+RUN dnf install -y gcc-c++ && \
+  dnf -y install git && \
+  dnf -y install patchelf  && \
+  dnf -y install cmake  && \
   python3.8 -m pip install pip==${PIP_VERSION} && \
-  pip install --no-cache numpy wheel protobuf && \
-  cd Paddle && \
-  git checkout release/2.4 && \
-  mkdir build && cd build && \
-  PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8 \
-  -DPYTHON_LIBRARY=/usr/lib64/libpython3.8.so \
-  -DWITH_GPU=OFF -DWITH_AVX=OFF -DWITH_ARM=ON
-RUN cd /Paddle/build; make TARGET=ARMV8 -j4
+  pip install --no-cache numpy && \
+  pip install --no-cache wheel && \
+  pip install --no-cache protobuf && \
+  git clone https://github.com/PaddlePaddle/Paddle.git && \
+  cd Paddle; git checkout release/2.4 && \
+  mkdir build && \
+  cd build && \
+  PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIRS} \
+    -DPYTHON_LIBRARY=${PYTHON_LIBRARY} -DWITH_GPU=OFF \
+    -DWITH_AVX=OFF -DWITH_ARM=ON
+RUN cd /Paddle/build; make -j$(nproc)
+
+# RUN dnf -y install patchelf cmake git gcc-c++ && \
+#   dnf -y install python3-devel && \
+#   git clone https://github.com/PaddlePaddle/Paddle.git && \
+#   python3.8 -m pip install pip==${PIP_VERSION} && \
+#   pip install --no-cache numpy wheel protobuf && \
+#   cd Paddle && \
+#   git checkout release/2.4 && \
+#   mkdir build && cd build && \
+#   PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=/usr/include/python3.8 \
+#   -DPYTHON_LIBRARY=/usr/lib64/libpython3.8.so \
+#   -DWITH_GPU=OFF -DWITH_AVX=OFF -DWITH_ARM=ON
+# RUN cd /Paddle/build; make TARGET=ARMV8 -j4
 # RUN    cd /Paddle/build/python/dist 
 # RUN    pip install -U paddlepaddle-0.0.0-cp38-cp38-linux_aarch64.whl 
 # RUN    cd / 
