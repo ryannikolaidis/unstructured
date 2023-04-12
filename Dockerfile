@@ -1,15 +1,19 @@
 # syntax=docker/dockerfile:experimental
 
-FROM rockylinux:8.7.20230215
+FROM rockylinux:9.1.20230215
 
 ARG PIP_VERSION
 ARG TARGET_ARCH=arm
+
 
 # Install dependency packages
 RUN dnf -y update && \
   dnf -y install poppler-utils xz-devel wget make which && \
   dnf install -y epel-release && \
-  dnf --enablerepo=powertools install -y pandoc-common && \
+  dnf -y install dnf-plugins-core && \
+  dnf config-manager --enable crb && \
+  # Note(rniko): we must enable crb before installing pandoc
+  dnf install -y pandoc-common && \
   dnf -y install gcc
 
 ENV PATH "$PATH:/usr/bin/gcc"
