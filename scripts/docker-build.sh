@@ -8,6 +8,7 @@ DOCKER_IMAGE_NAME="${DOCKER_IMAGE_NAME:-unstructured:dev}"
 DOCKER_BUILD_CMD=(docker buildx build --load -f Dockerfile \
   --build-arg PIP_VERSION="$PIP_VERSION" \
   --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --platform linux/arm64 \
   --progress plain \
   --cache-from "$DOCKER_REPOSITORY":latest \
   -t "$DOCKER_IMAGE_NAME" .)
