@@ -109,13 +109,16 @@ RUN dnf -y install python3-devel && \
   export PATH=$PATH:hipconfig && \
   pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
   # trigger update of models cache
-  python3.8 -c "from transformers.utils import move_cache; move_cache()" 
+  python3.8 -c "from transformers.utils import move_cache; move_cache()" && \
+  # we must downgrade protobuf because paddle has an out of date generated _pb2.py file
+  # that will otherwise trigger errors on model loading
+  pip install "protobuf<3.21"
 
 COPY example-docs example-docs
 COPY unstructured unstructured
 
-# RUN python3.8 -c "import nltk; nltk.download('punkt')" && \
-#   python3.8 -c "import nltk; nltk.download('averaged_perceptron_tagger')" && \
-#   python3.8 -c "from unstructured.ingest.doc_processor.generalized import initialize; initialize()"
+RUN python3.8 -c "import nltk; nltk.download('punkt')" && \
+  python3.8 -c "import nltk; nltk.download('averaged_perceptron_tagger')" && \
+  python3.8 -c "from unstructured.ingest.doc_processor.generalized import initialize; initialize()"
 
 CMD ["/bin/bash"]
