@@ -46,6 +46,7 @@ ENV PATH="/home/usr/.local/bin:${PATH}"
 COPY requirements requirements
 
 RUN dnf -y install python3-devel && \
+  dnf install -y gcc-c++ && \
   pip install --no-cache -r requirements/base.txt && \
   pip install --no-cache -r requirements/test.txt && \
   pip install --no-cache -r requirements/huggingface.txt && \
@@ -58,7 +59,6 @@ RUN dnf -y install python3-devel && \
   pip install --no-cache -r requirements/ingest-s3.txt && \
   pip install --no-cache -r requirements/ingest-wikipedia.txt && \
   pip install --no-cache -r requirements/local-inference.txt && \
-  dnf install -y gcc-c++ && \
   # we need this workaround for an issue where installing detectron2 for non-ROCM builds raises unhandled NotADirectoryError exception
   export PATH=$PATH:hipconfig && \
   pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
