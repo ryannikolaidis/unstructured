@@ -27,6 +27,7 @@ RUN dnf -y install openssl-devel bzip2-devel libffi-devel make git sqlite-devel 
   dnf install -y zlib-devel && \
   make altinstall && \
   cd .. && rm -rf Python-3.8.15* && \
+  ln -s /usr/local/bin/python3.8 /usr/local/bin/python3 && \
   dnf -y remove openssl-devel bzip2-devel libffi-devel make sqlite-devel && \
   dnf -y clean all
 
@@ -45,7 +46,8 @@ ENV PATH="/home/usr/.local/bin:${PATH}"
 # Copy and install Unstructured
 COPY requirements requirements
 
-RUN dnf -y install python3-devel && \
+RUN python3.8 -m pip install pip==${PIP_VERSION} && \
+  dnf -y install python3-devel && \
   dnf install -y gcc-c++ && \
   pip install --no-cache -r requirements/base.txt && \
   pip install --no-cache -r requirements/test.txt && \
@@ -61,14 +63,7 @@ RUN dnf -y install python3-devel && \
   pip install --no-cache -r requirements/local-inference.txt && \
   # we need this workaround for an issue where installing detectron2 for non-ROCM builds raises unhandled NotADirectoryError exception
   export PATH=$PATH:hipconfig && \
-  # install transformers otherwise detectron install fails ModuleNotFoundError: No module named 'transformers'
-  pip install transformers && \
-  pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
-  # trigger update of models cache
-  python3.8 -c "from transformers.utils import move_cache; move_cache()" && \
-  # we must downgrade protobuf because paddle has an out of date generated _pb2.py file
-  # that will otherwise trigger errors on model loading
-  pip install "protobuf<3.21"
+  pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2"
 
 COPY example-docs example-docs
 COPY unstructured unstructured
