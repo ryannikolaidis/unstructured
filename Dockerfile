@@ -53,20 +53,20 @@ RUN dnf -y install python3-devel && \
   pip install --no-cache -r requirements/ingest-azure.txt && \
   pip install --no-cache -r requirements/ingest-github.txt && \
   pip install --no-cache -r requirements/ingest-gitlab.txt && \
-  pip install --no-cache -r requirements/local-inference.txt && \
   pip install --no-cache -r requirements/ingest-google-drive.txt && \
   pip install --no-cache -r requirements/ingest-reddit.txt && \
   pip install --no-cache -r requirements/ingest-s3.txt && \
   pip install --no-cache -r requirements/ingest-wikipedia.txt && \
+  pip install --no-cache -r requirements/local-inference.txt && \
   dnf install -y gcc-c++ && \
   # we need this workaround for an issue where installing detectron2 for non-ROCM builds raises unhandled NotADirectoryError exception
   export PATH=$PATH:hipconfig && \
   pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
   # trigger update of models cache
   python3.8 -c "from transformers.utils import move_cache; move_cache()" && \
-  # # we must downgrade protobuf because paddle has an out of date generated _pb2.py file
-  # # that will otherwise trigger errors on model loading
-  # pip install "protobuf<3.21"
+  # we must downgrade protobuf because paddle has an out of date generated _pb2.py file
+  # that will otherwise trigger errors on model loading
+  pip install "protobuf<3.21"
 
 COPY example-docs example-docs
 COPY unstructured unstructured
