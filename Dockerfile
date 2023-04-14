@@ -64,6 +64,32 @@ RUN mkdir ${HOME}/.ssh && chmod go-rwx ${HOME}/.ssh \
 ENV PYTHONPATH="${PYTHONPATH}:${HOME}"
 ENV PATH="/home/usr/.local/bin:${PATH}"
 
+
+# Paddle
+ENV PATH=/home/CMake-3.16.9/bin:$PATH
+ENV PYTHON_LIBRARY="/usr/local/lib/python3.8"
+ENV PYTHON_INCLUDE_DIRS="/usr/local/include/python3.8"
+RUN yum -y install make patchelf && \
+    wget https://github.com/Kitware/CMake/archive/refs/tags/v3.16.9.tar.gz && \
+    tar -zxvf v3.16.9.tar.gz && \
+    rm v3.16.9.tar.gz && \
+    cd CMake-3.16.9 && \
+    scl enable devtoolset-9 bash && \
+    yum install openssl openssl-devel -y && \
+    ./bootstrap && \
+    gmake
+RUN python3.8 -m pip install pip==${PIP_VERSION} && \
+  pip install --no-cache numpy wheel protobuf
+RUN cd /; git clone https://github.com/PaddlePaddle/Paddle.git && \
+    cd Paddle && \ 
+    git checkout release/2.4 && \
+    mkdir build && cd build && \
+    PYTHON_EXECUTABLE=/usr/local/bin/python3.8 cmake .. -DPY_VERSION=3.8 -DPYTHON_INCLUDE_DIR=${PYTHON_INCLUDE_DIRS} \
+        -DPYTHON_LIBRARY=${PYTHON_LIBRARY} -DWITH_GPU=OFF \
+        -DWITH_AVX=OFF -DWITH_ARM=ON
+RUN cd /Paddle/build; make -j$(nproc)
+
+
 # Copy and install Unstructured
 COPY requirements requirements
 
