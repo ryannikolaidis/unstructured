@@ -61,6 +61,8 @@ RUN dnf -y install python3-devel && \
   pip install --no-cache -r requirements/local-inference.txt && \
   # we need this workaround for an issue where installing detectron2 for non-ROCM builds raises unhandled NotADirectoryError exception
   export PATH=$PATH:hipconfig && \
+  # install transformers otherwise detectron install fails ModuleNotFoundError: No module named 'transformers'
+  pip install transformers && \
   pip install --no-cache "detectron2@git+https://github.com/facebookresearch/detectron2.git@e2ce8dc#egg=detectron2" && \
   # trigger update of models cache
   python3.8 -c "from transformers.utils import move_cache; move_cache()" && \
