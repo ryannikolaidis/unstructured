@@ -3,8 +3,6 @@
 FROM rockylinux:9.1.20230215
 
 ARG PIP_VERSION
-ARG TARGET_ARCH=arm
-
 
 # Install dependency packages
 RUN dnf -y update && \
@@ -13,7 +11,7 @@ RUN dnf -y update && \
   dnf -y install dnf-plugins-core && \
   dnf config-manager --enable crb && \
   # Note(rniko): we must enable crb before installing pandoc
-  dnf install -y pandoc-common && \
+  dnf install -y pandoc && \
   dnf -y install gcc
 
 ENV PATH "$PATH:/usr/bin/gcc"
