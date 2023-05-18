@@ -153,7 +153,7 @@ jobs:
         make install-ingest-gitlab
         make install-ingest-slack
         make install-ingest-wikipedia
-        HF_DATASETS_OFFLINE=1 TRANSFORMERS_OFFLINE=1 ./test_unstructured_ingest/test-ingest.sh
+        ./test_unstructured_ingest/test-ingest.sh
 
   # changelog:
   #   runs-on: ubuntu-latest
