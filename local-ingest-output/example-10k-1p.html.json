@@ -1,0 +1,641 @@
+[
+  {
+    "element_id": "7ed43aeeed9081b969d80ed143168dc2",
+    "text": "TRANSITION REPORT PURSUANT TO SECTION 13 OR 15(d) OF THE SECURITIES EXCHANGE ACT OF 1934",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "9e4d067641628182d1c205fe7fc5ac5e",
+    "text": "For the transition period from       to",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "470be135c46b2bf6792ee50973d5f98a",
+    "text": "Commission file number: 000-30653",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "3434b6bbe88ae727f2ae58f54808a971",
+    "text": "Galaxy Gaming, Inc.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "30bbcd5367a407b13c9049977e207e63",
+    "text": "(Exact name of small business issuer as specified in its charter)",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "485cb2743137b5340b3d71f2e77334a9",
+    "text": "Nevada",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "d4a61f89631128478e37465fa8baf594",
+    "text": "20-8143439",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "e79b9b56be4857765162713276ba5bfe",
+    "text": "(State or other jurisdiction of incorporation or organization)",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "e776f7969b347c1b20b24b34b05e4143",
+    "text": "(IRS Employer Identification No.)",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "813f4798f7a7eb6da40501d7caf48898",
+    "text": "6480 Cameron Street Ste. 305 – Las Vegas, NV 89118",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "df3a4125e3cd870b99f10c116efcfaa8",
+    "text": "(Address of principal executive offices)",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "cb1f383ee32a9ac6ff529094ae619243",
+    "text": "(702) 939-3254",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "b70ddab3b736a0159fa2e9be22b9c7b0",
+    "text": "(Registrant’s telephone number)",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "9b2f1e18d352874047c3073aef02bf02",
+    "text": "Securities registered under Section 12(b) of the Act:",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "90354f0e8c52a2b93b244b07d4749ef1",
+    "text": "Title of each class",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "5dfa3540f19a0e9dd3ae29ac1c565f7f",
+    "text": "Trading symbol",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "7c05743ec2a396a3916e44a4fb5d120b",
+    "text": "Name of exchange on which registered",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "1d4792dda81fb1a9c8ac8f686a53bb2f",
+    "text": "Common stock",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "c94aa9ff514342effc03d27e29507c30",
+    "text": "GLXZ",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "d7e0b1e9f94cbc0d490060cbf25c5949",
+    "text": "OTCQB marketplace",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "aa8edfa638dd2c0c6bc5672592e7cdc1",
+    "text": "Indicate by check mark if the registrant is a well-known seasoned issuer, as defined in Rule 405 of the Securities Act.    Yes  ☐    No  ☑",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "d1470ffa67d7244820c46e7155890d3c",
+    "text": "Indicate by check mark if the registrant is not required to file reports pursuant to Section 13 or Section 15(d) of the Act.     Yes  ☐    No  ☑",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "39f3fb2b3b4602469d1556119f229029",
+    "text": "Indicate by checkmark whether the registrant (1) has filed all reports required to be filed by Section 13 or 15(d) of the Securities Exchange Act of 1934 during the preceding 12 months (or for such shorter period that the registrant was required to file such reports), and (2) has been subject to such filing requirements for the past 90 days.    Yes  ☑    No  ☐",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "cb1cfb665bc2528426da13362c1bc9b3",
+    "text": "Indicate by check mark whether the issuer has submitted electronically every Interactive Data File required to be submitted pursuant to Rule 405 of Regulation S-T (§232.405 of this chapter) during the preceding 12 months (or for such shorter period that the registrant was required to submit such files).     Yes  ☑    No  ☐",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "ea517aff5fa45e2164d518d31e59e451",
+    "text": "Indicate by check mark whether the registrant is a large accelerated filer, an accelerated filer, a non-accelerated filer, a smaller reporting company, or an emerging growth company. See the definitions of “large accelerated filer,” “accelerated filer,” “smaller reporting company,” and “emerging growth company” in Rule 12b-2 of the Exchange Act.",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "01f852217f351478e7beba25301086b9",
+    "text": "☐ Accelerated filer",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "facc74a9fb4c37d055edea68bb7bb2b7",
+    "text": "☐ Smaller reporting company",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "dca3342b4d11a2c8af325c5d019ecac1",
+    "text": "Emerging growth Company",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "5a0b3cd506b1cd01712c789625d32723",
+    "text": "If an emerging growth company, indicate by check mark if the registrant has elected not to use the extended transition period for complying with any new or revised financial accounting standard provided pursuant to Section 13(a) of the Exchange Act.  ☐",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "8ed3391a57566fb9a68d6430ca6958fa",
+    "text": "Indicate by check mark whether the registrant has filed a report on and attestation to its management’s assessment of the effectiveness of its internal control over financial reporting under Section 404(b) of the Sarbanes-Oxley Act (15 U.S.C. 7262(b)) by the registered public accounting firm that prepared or issued its audit report.  ☐",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "80bf6efb3f3b0a41bb5b47f84eba2f69",
+    "text": "Indicate by check mark whether the registrant is a shell company (as defined in Rule 12b-2 of the Exchange Act).    Yes  ☐    No  ☑",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "e11b3a9b4246e176cd83b48fe646c7ba",
+    "text": "State the aggregate market value of the voting and non-voting common equity held by non-affiliates computed by reference to the price at which the common equity was last sold, or the average bid and asked price of such common equity, as of the last business day of the registrant’s second fiscal quarter. $70,923,698.",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "b79290a50728f2a19ba73603c464937d",
+    "text": "Indicate the number of shares outstanding of each of the registrant’s classes of common stock, as of the latest practicable date: 23,718,968 common shares as of March 28, 2022.",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "22c3c8e9e702ac13762a00d4796ef1a4",
+    "text": "GALAXY GAMING, INC.",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "f694a1e1ef34a9bebf8beec454526cfa",
+    "text": "ANNUAL REPORT ON FORM 10-K FOR THE YEAR ENDED DECEMBER 31, 2021",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "dee18caa47ed61ec83d207ff2dbfdbb1",
+    "text": "TABLE OF CONTENTS",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "495768bd3d6957619d4fbe2457811a04",
+    "text": "PART I",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "9d9131a9be2fcdb7078487f770f7171b",
+    "text": "Item 1.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "76f68a75f01ed76f5a02ada71a3765a3",
+    "text": "Business",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "02cdc0b3ff3012a6642c46ed7a30f109",
+    "text": "Item 1A.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "99017d3b343420323ec3c6a988357367",
+    "text": "Risk Factors",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "7e80684e00c84c150e89f4ce2a841606",
+    "text": "Item 1B.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "3f19005c3902cdc8daf949cc9edf56cf",
+    "text": "Unresolved Staff Comments",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "c0e83d0cbdb4192adf3123bdf6de5262",
+    "text": "Item 2.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "ae43692b2a310b8ed2443d2b7d2a3e4c",
+    "text": "Properties",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "f395a8cdee3ce9cb5e417c56358b48de",
+    "text": "Item 3.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "c98543d35a12c4a366408c267054d87d",
+    "text": "Legal Proceedings",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "6833243d1b9a9dff85eab147fe762322",
+    "text": "Item 4.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "d74dd6b9a064bbe7f2e56d6e4f0f6e9a",
+    "text": "Mine Safety Disclosures",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "87b6a3b1d87b62692a8d3c58da990ad0",
+    "text": "PART II",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "e38e7e70624e8870aa35b69b6fa0b987",
+    "text": "Item 5.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "f1d67f32d85553d22e49c6c88234fd37",
+    "text": "Market for Registrant’s Common Equity and Related Stockholder Matters",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "4a44dc15364204a80fe80e9039455cc1",
+    "text": "10",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "ba7667735977278697782419e854e7ff",
+    "text": "Item 7.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "8e5a4e6b94c7347a9136e45a4e7cf70e",
+    "text": "Management’s Discussion and Analysis of Financial Condition and Results of Operations",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "6b51d431df5d7f141cbececcf79edf3d",
+    "text": "12",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "efca15220d500638562ccda8348feff9",
+    "text": "Item 7A.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "744f1bb9093b8c4d12605621ca7be207",
+    "text": "Quantitative and Qualitative Disclosures about Market Risk",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "8527a891e224136950ff32ca212b45bc",
+    "text": "14",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "4a1346eeed6c472cd3fc7bf43b384c42",
+    "text": "Item 8.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "7f8d611b4573839e63767eb46a18935c",
+    "text": "Financial Statements and Supplementary Financial Information",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "e629fa6598d732768f7c726b4b621285",
+    "text": "15",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "93d3a008334997d5a98c523fc9c8ab4f",
+    "text": "Item 9.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "8773c5ce6e9dc95c121a411955490fd6",
+    "text": "Changes in and Disagreements with Accountants on Accounting and Financial Disclosure",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "9f14025af0065b30e47e23ebb3b491d3",
+    "text": "35",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "cf4771583efd686ac9164f761a2715cc",
+    "text": "Item 9A.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "ad94c204dfd526a4cb8e02e20202056b",
+    "text": "Controls and Procedures",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "9f14025af0065b30e47e23ebb3b491d3",
+    "text": "35",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "1588c081fb2f7f9785c6536616de1777",
+    "text": "Item 9B.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "884d845f21387f6936d3a12242ab7b15",
+    "text": "Other Information",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "9f14025af0065b30e47e23ebb3b491d3",
+    "text": "35",
+    "type": "UncategorizedText",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  }
+]

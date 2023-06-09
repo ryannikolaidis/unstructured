@@ -1,0 +1,47 @@
+[
+  {
+    "element_id": "6d9172eb6d0907df0acd78c5e1ddb3db",
+    "text": "GitLab Modifications to the Docsy Theme",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "61dde051d0daab7f7394e2e9727f3158",
+    "text": "Here at GitLab we use Docsy as a base to our Intenral and public Handbook.\nOn top of this sits a number of modifications and extensions to make the \ntheme work better for use in our Handbooks.  This repository is these\nmodifications.",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "32a77732c9d0009b05d27ed25352d6bd",
+    "text": "All paritals and shortcodes should be included in this repository for\nboth the internal and public handbooks.",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "e3ded05b8ad4dc01e4b2603f41fa6114",
+    "text": "They are setup as a Go module for use with Hugo.",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "07e12149e03ae6437fdf908d3e7ae870",
+    "text": "Verion 0.0.7",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  }
+]

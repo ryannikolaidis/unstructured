@@ -1,0 +1,173 @@
+[
+  {
+    "element_id": "6eb9b4598f1f483b176e913b9392e944",
+    "text": "title: Contributing Guidelines",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "35e33ce0504c125ac68e58c3e34cddb3",
+    "text": "menu:",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "e834d035ea6c558af6b1ef551fe6060c",
+    "text": "main:",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "b51c37c0225c89cc98283eb420ce6b5b",
+    "text": "name: Contribute",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "c90d641c809323e9dbbe6432e40c97df",
+    "text": "weight: -20",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "1cb303a0e66439d864a8d1a612ba7363",
+    "text": "pre: ''",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "c74162fb821c6c9b682b4845936a84cc",
+    "text": "In general, content management on the internal handbook is very similar to the public handbook. The key differences are described on this page.",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "a42cdd0acb84998b4218712945f65c20",
+    "text": "Differences from Public handbook",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "6b365d98404af8c5db1ea709f57c775d",
+    "text": "Content is maintained in the /content directory, not /source. See the directory structure below.",
+    "type": "ListItem",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "7f2c308b0d32d142c3381df6dde30bf5",
+    "text": "Child pages of a section and their summary are automatically listed at the bottom of each section page.",
+    "type": "ListItem",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "31e43ef681aa9d07b18bcd306d48773a",
+    "text": "Pages can only be authored as .html or .md and you should use only one file extension or the other. Instead of creating my-team/about/index.html.md simply use my-team/about.md.",
+    "type": "ListItem",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "2858c4a0d3c7da668826d0ff3cfa9032",
+    "text": "Section Pages",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "c9bbacd674c171b1e0c9073b0cf560fe",
+    "text": "Section pages (i.e. _index.md) are a bit special. If you are creating a new section (i.e. a directory that will have child pages), you should always include a _index.md in the same directory. By default, the bottom of your \"section\" page will include a list of child pages within the section. See as an example.",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "60ff84de4005da9e8ef286dd08aab430",
+    "text": "Content Structure",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "2e936617d2285b1539b6db0ef13fe6fd",
+    "text": "Below is an example of the content structure used for this site:",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "a5b01811a70997f843b575388a16f4fa",
+    "text": "plain\ncontent\n├── docs\n│   └── _index.md\n├── handbook\n│   ├── alliances\n│   │   ├── _index.md\n│   │   ├── aws.md\n│   │   ├── ecosystempartners.md\n│   │   ├── gcp.md\n│   │   ├── ibm.md\n│   │   └── redhat.md\n│   ├── company\n│   │   ├── _index.md\n│   │   ├── communication\n│   │   │   ├── _index.md\n│   │   │   └── project-code-names.md\n│   │   ├── crisis-process.md\n│   │   └── performance-indicators\n│   │       ├── _index.md\n│   │       ├── product\n│   │       │   ├── _index.md\n│   │       │   ├── dev-section.md\n│   │       │   ├── enablement-section.md\n│   │       │   ├── modelops-section.md\n│   │       │   ├── ops-section.md\n│   │       │   ├── sec-section.md\n│   │       │   └── stages-and-groups.md\n│   │       └── sales.md\n│   └── ...",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "13bef7099257d8a144794f0aeef61238",
+    "text": "{{< alert title=\"Under Construction\" color=\"warning\" >}}\nContributing guidelines are WIP. If you are feeling ambitious here are some useful links:",
+    "type": "NarrativeText",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "7fd8c28034a650447984dc47b35d0cb1",
+    "text": "Hugo Docs",
+    "type": "ListItem",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "3fbe0f417b2793daa3d952aae6c650cc",
+    "text": "Docsy Shortcodes\n{{</ alert >}}",
+    "type": "ListItem",
+    "metadata": {
+      "filetype": "text/markdown",
+      "page_number": 1
+    }
+  }
+]

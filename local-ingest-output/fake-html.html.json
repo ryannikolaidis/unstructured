@@ -1,0 +1,20 @@
+[
+  {
+    "element_id": "0540311f6c077fe8f797080918b8d74b",
+    "text": "My First Heading",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  },
+  {
+    "element_id": "399af454cb1368b8257ed406b430de84",
+    "text": "My first paragraph.",
+    "type": "Title",
+    "metadata": {
+      "filetype": "text/html",
+      "page_number": 1
+    }
+  }
+]
