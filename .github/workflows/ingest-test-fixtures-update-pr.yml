@@ -3,13 +3,17 @@ name: Ingest Test Fixtures Update PR
 on:
   push:
   workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch name'
+        required: false
 
 jobs:
   setup:
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && contains(github.event.head_commit.message, 'ingest-test-fixtures-update'))
+      (github.event_name == 'push' && contains(github.event.head_commit.message, 'ingest-test-fixtures-update')
     env:
       NLTK_DATA: ${{ github.workspace }}/nltk_data
       PYTHON_VERSION: "3.8"
@@ -79,9 +83,12 @@ jobs:
       - name: Save branch name to environment file
         id: branch
         run: |
-          original_branch=$(git rev-parse --abbrev-ref HEAD)
+          original_branch=${{ github.event.inputs.branch }}
+          if [[ -z "$original_branch" ]]; then
+            original_branch=$(git rev-parse --abbrev-ref HEAD)
+          fi
           suffix="|ingest-test-fixtures-update-$(git rev-parse --short HEAD)"
-          branch_name="$original_branch$suffix"
+          branch_name="${original_branch}${suffix}"
           echo "BRANCH_NAME=$branch_name" >> $GITHUB_ENV
 
       - name: Save PR name to environment file
