@@ -106,7 +106,7 @@ fi
 # Search files in FILES_TO_CHECK and change (or get diffs)
 declare FAILED_CHECK=0
 
-MAIN_VERSION=$(git show main:unstructured/__version__.py | grep -o -m 1 -E "${RE_SEMVER_FULL}")
+MAIN_VERSION=$(git show refs/heads/main:unstructured/__version__.py | grep -o -m 1 -E "${RE_SEMVER_FULL}")
 MAIN_IS_RELEASE=false
 [[ $MAIN_VERSION != *"-dev"* ]] && MAIN_IS_RELEASE=true
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
