@@ -25,6 +25,7 @@ function getopts-extra () {
     done
 }
 
+git fetch origin main
 git show refs/heads/main:unstructured/__version__.py 
 git ls-tree refs/heads/main unstructured/__version__.py
 git cat-file -p refs/heads/main:unstructured/__version__.py
