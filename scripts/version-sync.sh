@@ -25,6 +25,10 @@ function getopts-extra () {
     done
 }
 
+git show refs/heads/main:unstructured/__version__.py 
+git ls-tree refs/heads/main unstructured/__version__.py
+git cat-file -p refs/heads/main:unstructured/__version__.py
+
 # Parse input options
 declare CHECK=0
 declare SOURCE_FILE="CHANGELOG.md"
