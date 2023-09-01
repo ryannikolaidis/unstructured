@@ -25,11 +25,6 @@ function getopts-extra () {
     done
 }
 
-git fetch origin main
-git show origin/main:unstructured/__version__.py 
-git ls-tree origin/main unstructured/__version__.py
-git cat-file -p origin/main:unstructured/__version__.py
-
 # Parse input options
 declare CHECK=0
 declare SOURCE_FILE="CHANGELOG.md"
@@ -110,7 +105,9 @@ fi
 
 # Search files in FILES_TO_CHECK and change (or get diffs)
 declare FAILED_CHECK=0
-
+git remote set-url origin https://github.com/ryannikolaidis/unstructured
+git remote get-url origin
+git fetch origin main
 MAIN_VERSION=$(git show origin/main:unstructured/__version__.py | grep -o -m 1 -E "${RE_SEMVER_FULL}")
 MAIN_IS_RELEASE=false
 [[ $MAIN_VERSION != *"-dev"* ]] && MAIN_IS_RELEASE=true
