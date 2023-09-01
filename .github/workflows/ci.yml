@@ -72,4 +72,5 @@ jobs:
     - name: Lint
       run: |
         source .venv/bin/activate
+        git remote set-url origin https://github.com/ryannikolaidis/unstructured
         make check
