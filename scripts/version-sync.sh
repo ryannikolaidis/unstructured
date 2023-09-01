@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+set -eux
+
 function usage {
     echo "Usage: $(basename "$0") [-c] -f FILE_TO_CHANGE REPLACEMENT_FORMAT [-f FILE_TO_CHANGE REPLACEMENT_FORMAT ...]" 2>&1
     echo 'Synchronize files to latest version in source file'
