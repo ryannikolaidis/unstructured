@@ -25,10 +25,9 @@ function getopts-extra () {
     done
 }
 
-git fetch origin main
-git show refs/heads/main:unstructured/__version__.py 
-git ls-tree refs/heads/main unstructured/__version__.py
-git cat-file -p refs/heads/main:unstructured/__version__.py
+git show origin/main:unstructured/__version__.py 
+git ls-tree origin/main unstructured/__version__.py
+git cat-file -p origin/main:unstructured/__version__.py
 
 # Parse input options
 declare CHECK=0
@@ -111,7 +110,7 @@ fi
 # Search files in FILES_TO_CHECK and change (or get diffs)
 declare FAILED_CHECK=0
 
-MAIN_VERSION=$(git show refs/heads/main:unstructured/__version__.py | grep -o -m 1 -E "${RE_SEMVER_FULL}")
+MAIN_VERSION=$(git show origin/main:unstructured/__version__.py | grep -o -m 1 -E "${RE_SEMVER_FULL}")
 MAIN_IS_RELEASE=false
 [[ $MAIN_VERSION != *"-dev"* ]] && MAIN_IS_RELEASE=true
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
