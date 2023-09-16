@@ -31,6 +31,8 @@ jobs:
         echo ${{ steps.filter.outputs.workflows }}
         echo ${{ steps.filter.outputs.code }}
         echo ${{ steps.filter.outputs.code_files }}
+        echo ${{ steps.filter.outputs.code_changes }}
+        echo ${{ steps.filter.outputs.code_count }}
         echo ${{ steps.filter.outputs.changelog }}
     # there's no true exclusion filtering, so we have to do this to verify if there are non-version changes to code
     - name: set VERSION_ONLY_CODE_CHANGE
