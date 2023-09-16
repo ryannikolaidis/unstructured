@@ -20,6 +20,8 @@ jobs:
       id: filter
       with:
         filters: |
+          all:
+            - '**'
           workflows:
             - '.github/workflows/**'
           code:
@@ -28,6 +30,8 @@ jobs:
             - 'CHANGELOG.md'
     - name: echo results
       run: |
+        echo ${{ steps.filter.outputs.all }}
+        echo ${{ steps.filter.outputs.all_files }}
         echo ${{ steps.filter.outputs.workflows }}
         echo ${{ steps.filter.outputs.code }}
         echo ${{ steps.filter.outputs.code_files }}
