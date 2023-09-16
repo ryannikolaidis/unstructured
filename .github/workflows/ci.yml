@@ -16,6 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Get changed files in current commit
+      run: |
+        git diff --name-only HEAD^..HEAD > changed_files.txt
+      id: get-changed-files
+
+    - name: Filter files
+      uses: dorny/paths-filter@v2
+      with:
+        paths: |
+          $(cat changed_files.txt)
+      id: filter-files
     - uses: dorny/paths-filter@v2
       id: filter
       with:
