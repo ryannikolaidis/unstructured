@@ -58,7 +58,7 @@ jobs:
     # if: $env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
     steps:
     - name: Version change
-      if: env.VERSION_ONLY_CODE_CHANGE == 'true'
+      if: env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
       run: echo "running version change"
 
 
