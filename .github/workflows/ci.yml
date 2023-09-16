@@ -55,7 +55,7 @@ jobs:
   version-change:
     needs: paths-filter
     runs-on: ubuntu-latest
-    if: env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
+    if: ${{ env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'}}
     steps:
     - name: Version change
       if: env.VERSION_ONLY_CODE_CHANGE == 'true'
