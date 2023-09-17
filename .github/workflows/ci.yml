@@ -24,8 +24,11 @@ jobs:
         git diff --name-only ${{ github.event.before }} ${{ github.sha }}
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
-        echo "$CHANGED_FILES" | grep "^unstructured/"
+        echo "0"
+        echo $CHANGED_FILES | grep "^unstructured/"
+        echo "1"
         echo "$CHANGED_FILES" | grep "^unstructured/__version__.py"
+        echo "2"
         echo $CHANGED_FILES | grep "^unstructured/" | grep -c -v "unstructured/__version__.py"  && echo "true"
 
     #     if [[ -n "$(echo "$CHANGED_FILES" | grep -E '^unstructured/[^_].*')" ]]; then
