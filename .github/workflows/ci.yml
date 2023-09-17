@@ -29,14 +29,19 @@ jobs:
         if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
         if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then HAS_VERSION_CHANGE=true; fi
         if echo "$CHANGED_FILES" | grep -q "^CHANGELOG.md"; then HAS_CHANGELOG_CHANGE=true; fi
-        
         echo "CODE_CHANGES=$HAS_CODE_CHANGES"
         echo "VERSION_CHANGE=$HAS_VERSION_CHANGE"
         echo "CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE"
+        
+        # export to github env
+        echo "HAS_CODE_CHANGES=$HAS_CODE_CHANGES" >> $GITHUB_ENV
+        echo "HAS_VERSION_CHANGE=$HAS_VERSION_CHANGE" >> $GITHUB_ENV
+        echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV
+
   job-code-changes:
     needs: path-filters
     runs-on: ubuntu-latest
-    if: env.HAS_CODE_CHANGES == 'true'
+    if: ${{ env.HAS_CODE_CHANGES == 'true' }}
     steps:
       - name: Log job-code-changes
         run: |
@@ -51,7 +56,7 @@ jobs:
   job-version-changes:
     needs: path-filters
     runs-on: ubuntu-latest
-    if: env.HAS_VERSION_CHANGE == 'true'
+    if: ${{ env.HAS_VERSION_CHANGE == 'true' }}
     steps:
       - name: Log job-version-changes
         run: |

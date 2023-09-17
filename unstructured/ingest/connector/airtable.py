@@ -1,7 +1,7 @@
 import os
 import typing as t
 from dataclasses import dataclass
-from pathlib import Path  
+from pathlib import Path   
 
 from unstructured.ingest.error import SourceConnectionError
 from unstructured.ingest.interfaces import (
