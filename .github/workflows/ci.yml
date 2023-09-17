@@ -41,7 +41,7 @@ jobs:
   job-code-changes:
     needs: path-filters
     runs-on: ubuntu-latest
-    if: env.HAS_CODE_CHANGES == 'true'
+    if: ${{ env.HAS_CODE_CHANGES == 'true' }}
     steps:
       - name: Log job-code-changes
         run: |
