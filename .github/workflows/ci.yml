@@ -56,7 +56,7 @@ jobs:
   job-version-changes:
     needs: path-filters
     runs-on: ubuntu-latest
-    if: ${{ env.HAS_VERSION_CHANGE == 'true' }}
+    if: env.HAS_VERSION_CHANGE == 'true'
     steps:
       - name: Log job-version-changes
         run: |
