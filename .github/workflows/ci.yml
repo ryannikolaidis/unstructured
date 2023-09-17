@@ -30,7 +30,6 @@ jobs:
         if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then VERSION_CHANGE=true; fi
         if echo "$CHANGED_FILES" | grep -q "^unstructured/CHANGELOG.md"; then CHANGELOG_CHANGE=true; fi
         
-        echo "ANY_CODE_CHANGES=$ANY_CODE_CHANGES"
         echo "CODE_CHANGES=$CODE_CHANGES"
         echo "VERSION_CHANGE=$VERSION_CHANGE"
         echo "CHANGELOG_CHANGE=$CHANGELOG_CHANGE"
