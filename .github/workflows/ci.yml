@@ -24,6 +24,8 @@ jobs:
         git diff --name-only ${{ github.event.before }} ${{ github.sha }}
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
+        echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/"
+        echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/__version__.py"
         if [[ -n "$(echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/")" && ! "$(echo "${{ env.CHANGED_FILES }}" | grep -q "unstructured/__version__.py")" ]]; then
           echo "CODE_CHANGES=true" >> $GITHUB_ENV
         fi
