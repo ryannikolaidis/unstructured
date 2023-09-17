@@ -18,7 +18,7 @@ jobs:
     - name: Checkout codes
       uses: actions/checkout@v4
       with:
-        fetch-depth: 2
+        fetch-depth: 0
     - name: Assign filter variables
       run: |
         git diff --name-only ${{ github.event.before }} ${{ github.sha }}
