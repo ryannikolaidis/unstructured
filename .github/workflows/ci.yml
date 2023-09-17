@@ -12,72 +12,65 @@ env:
   GHA_CACHE_KEY_VERSION: "v1"
 
 jobs:
-  paths-filter:
+  path-filters:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout codes
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Get changed files in current commit
       run: |
-        git diff --name-only HEAD^..HEAD > changed_files.txt
-      id: get-changed-files
+        echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})" >> $GITHUB_ENV
+        echo "CHANGED_FILES=$CHANGED_FILES"
+    - name: Assign filter variables
+      run: |
+        # sets CODE_CHANGES=true if there are changes to files in unstructured/ aside from __version__.py
+        echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "CODE_CHANGES=true" >> $GITHUB_ENV
+        # sets VERSION_ONLY_CODE_CHANGE=true if there are changes to __version__.py
+        echo "${{ env.CHANGED_FILES }}" | grep -q -c "unstructured/__version__.py" && echo "VERSION_CHANGE=true" >> $GITHUB_ENV
+        # sets CHANGELOG_CHANGE=true if there are changes to CHANGELOG.md
+        echo "${{ env.CHANGED_FILES }}" | grep -q -c "CHANGELOG.md" && echo "CHANGELOG_CHANGE=true" >> $GITHUB_ENV
+    - name: Echo filter variables
+      run: |
+        echo "CODE_CHANGES=$CODE_CHANGES"
+        echo "VERSION_CHANGE=$VERSION_CHANGE"
+        echo "CHANGELOG_CHANGE=$CHANGELOG_CHANGE"
 
-    - name: Filter files
-      uses: dorny/paths-filter@v2
-      with:
-        paths: |
-          $(cat changed_files.txt)
-      id: filter-files
-    - uses: dorny/paths-filter@v2
-      id: filter
-      with:
-        list-files: shell
-        filters: |
-          all:
-            - '**'
-          workflows:
-            - '.github/workflows/**'
-          code:
-            - 'unstructured/**'
-          changelog:
-            - 'CHANGELOG.md'
-    - name: echo results
-      run: |
-        echo ${{ steps.filter.outputs.all }}
-        echo ${{ steps.filter.outputs.all_files }}
-        echo ${{ steps.filter.outputs.workflows }}
-        echo ${{ steps.filter.outputs.code }}
-        echo ${{ steps.filter.outputs.code_files }}
-        echo ${{ steps.filter.outputs.code_changes }}
-        echo ${{ steps.filter.outputs.code_count }}
-        echo ${{ steps.filter.outputs.changelog }}
-    # there's no true exclusion filtering, so we have to do this to verify if there are non-version changes to code
-    - name: set VERSION_ONLY_CODE_CHANGE
-      run: |
-        echo ${{ steps.filter.outputs.code_files }}
-        if echo ${{ steps.filter.outputs.code_files }} | grep "unstructured/__version__.py"; then
-          echo "VERSION_ONLY_CODE_CHANGE=true" >> $GITHUB_ENV
-        fi
-    - name: set CODE_CHANGES # set CODE_CHANGES to true if there are changes to files in unstructured/ aside from __version__.py
-      if: steps.filter.outputs.code_files == 'true' && env.VERSION_ONLY_CODE_CHANGE != 'true'
-      run: echo "CODE_CHANGES=true" >> $GITHUB_ENV
-    - name: set CHANGELOG_CHANGE
-      if: steps.filter.outputs.changelog == 'true'
-      run: echo "CHANGELOG_CHANGE=true" >> $GITHUB_ENV
-  version-no-code:
-    needs: paths-filter
-    runs-on: ubuntu-latest
-    steps:
-    - name: Non-version code changes
-      if: env.CODE_CHANGES == 'true'
-      run: echo "running non-version code changes"
-  version-change:
-    needs: paths-filter
-    runs-on: ubuntu-latest
-    # if: $env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
-    steps:
-    - name: Version change
-      if: env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
-      run: echo "running version change"
+  #   - name: set VERSION_ONLY_CODE_CHANGE
+  #     run: |
+  #       echo ${{ steps.filter.outputs.code_files }}
+  #       if echo ${{ steps.filter.outputs.code_files }} | grep "unstructured/__version__.py"; then
+  #         echo "VERSION_ONLY_CODE_CHANGE=true" >> $GITHUB_ENV
+  #       fi
+  #   - name: set CODE_CHANGES # set CODE_CHANGES to true if there are changes to files in unstructured/ aside from __version__.py
+  #     if: steps.filter.outputs.code_files == 'true' && env.VERSION_ONLY_CODE_CHANGE != 'true'
+  #     run: echo "CODE_CHANGES=true" >> $GITHUB_ENV
+  #   - name: set CHANGELOG_CHANGE
+  #     if: steps.filter.outputs.changelog == 'true'
+  #     run: echo "CHANGELOG_CHANGE=true" >> $GITHUB_ENV
+  # version-no-code-skip-step:
+  #   needs: paths-filter
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Non-version code changes
+  #     if: env.CODE_CHANGES == 'true'
+  #     run: echo "running non-version code changes (STEP)"
+  # version-no-code-skip-job:
+  #   needs: paths-filter
+  #   runs-on: ubuntu-latest
+  #   if: env.CODE_CHANGES != 'true'
+  #   steps:
+  #   - name: Non-version code changes
+  #     run: echo "running non-version code changes (JOB)"
+  # version-change:
+  #   needs: paths-filter
+  #   runs-on: ubuntu-latest
+  #   # if: $env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
+  #   steps:
+  #   - name: Version change
+  #     if: env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
+  #     run: echo "running version change"
 
 
   # setup:
