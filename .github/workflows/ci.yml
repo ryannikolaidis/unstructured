@@ -21,8 +21,12 @@ jobs:
         fetch-depth: 0
     - name: Get changed files in current commit
       run: |
-        git diff --name-only HEAD^..HEAD
-        echo "CHANGED_FILES=$(git diff --name-only HEAD^..HEAD)" >> $GITHUB_ENV
+        git diff --name-only ${{ github.event.before }} ${{ github.sha }}
+        {
+          echo 'CHANGED_FILES<<EOF'
+          git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          echo EOF
+        } >> "$GITHUB_ENV"
         echo "CHANGED_FILES=$CHANGED_FILES"
     - name: Assign filter variables
       run: |
