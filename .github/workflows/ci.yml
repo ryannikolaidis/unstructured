@@ -26,11 +26,11 @@ jobs:
         echo "CHANGED_FILES=$CHANGED_FILES"
         echo "0"
         echo "$CHANGED_FILES" | grep ""
-        echo "$CHANGED_FILES" | grep "^unstructured/"
+        echo "$CHANGED_FILES" | grep -q "^unstructured/"
         echo "1"
-        echo "$CHANGED_FILES" | grep "^unstructured/__version__.py"
+        echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"
         echo "2"
-        echo $CHANGED_FILES | grep "^unstructured/" | grep -c -v "unstructured/__version__.py"  && echo "true"
+        echo $CHANGED_FILES | grep -q "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "true"
 
     #     if [[ -n "$(echo "$CHANGED_FILES" | grep -E '^unstructured/[^_].*')" ]]; then
     #       echo "CODE_CHANGES=true" >> $GITHUB_ENV
