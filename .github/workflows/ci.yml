@@ -21,11 +21,10 @@ jobs:
         fetch-depth: 0
     - name: Get changed files in current commit
       run: |
-        echo "CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})" >> $GITHUB_ENV
+        echo "CHANGED_FILES=$(git diff --name-only HEAD^..HEAD)" >> $GITHUB_ENV
         echo "CHANGED_FILES=$CHANGED_FILES"
     - name: Assign filter variables
       run: |
-        # sets CODE_CHANGES=true if there are changes to files in unstructured/ aside from __version__.py
         echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "CODE_CHANGES=true" >> $GITHUB_ENV
         # sets VERSION_ONLY_CODE_CHANGE=true if there are changes to __version__.py
         echo "${{ env.CHANGED_FILES }}" | grep -q -c "unstructured/__version__.py" && echo "VERSION_CHANGE=true" >> $GITHUB_ENV
