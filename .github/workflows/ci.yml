@@ -46,7 +46,7 @@ jobs:
     - name: Version Change
       if: env.HAS_VERSION_CHANGE == 'true' || env.IS_EMPTY_COMMIT == 'true'
       run: |
-        echo "running version changes at step level"
+        echo "running version changes at step level" 
 
   # job-code-changes:
   #   needs: path-filters
