@@ -24,7 +24,7 @@ jobs:
         git diff --name-only ${{ github.event.before }} ${{ github.sha }}
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
-        CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/")
+        CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
         echo "CHANGED_CODE_FILES=$CHANGED_CODE_FILES"
         echo "-1"
         echo "$CHANGED_FILES" | grep ""
