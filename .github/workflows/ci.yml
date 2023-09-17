@@ -36,38 +36,46 @@ jobs:
         # export to github env
         echo "HAS_CODE_CHANGES=$HAS_CODE_CHANGES" >> $GITHUB_ENV
         echo "HAS_VERSION_CHANGE=$HAS_VERSION_CHANGE" >> $GITHUB_ENV
-        echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV
+        echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV 
+    - name: Code Change
+      if: env.HAS_CODE_CHANGES == 'true'
+      run: |
+        echo "running code changes at step level"
+    - name: Version Change
+      if: env.HAS_VERSION_CHANGE == 'true'
+      run: |
+        echo "running version changes at step level"
 
-  job-code-changes:
-    needs: path-filters
-    runs-on: ubuntu-latest
-    if: ${{ env.HAS_CODE_CHANGES == 'true' }}
-    steps:
-      - name: Log job-code-changes
-        run: |
-          echo "running code changes at job level"
-  step-code-changes:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log step-code-changes
-        if: env.HAS_CODE_CHANGES == 'true'
-        run: |
-          echo "running code changes at step level"
-  job-version-changes:
-    needs: path-filters
-    runs-on: ubuntu-latest
-    if: env.HAS_VERSION_CHANGE == 'true'
-    steps:
-      - name: Log job-version-changes
-        run: |
-          echo "running version changes at job level"
-  step-version-changes:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log step-version-changes
-        if: env.HAS_VERSION_CHANGE == 'true'
-        run: |
-          echo "running version changes at step level"
+  # job-code-changes:
+  #   needs: path-filters
+  #   runs-on: ubuntu-latest
+  #   if: ${{ env.HAS_CODE_CHANGES == 'true' }}
+  #   steps:
+  #     - name: Log job-code-changes
+  #       run: |
+  #         echo "running code changes at job level"
+  # step-code-changes:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Log step-code-changes
+  #       if: env.HAS_CODE_CHANGES == 'true'
+  #       run: |
+  #         echo "running code changes at step level"
+  # job-version-changes:
+  #   needs: path-filters
+  #   runs-on: ubuntu-latest
+  #   if: env.HAS_VERSION_CHANGE == 'true'
+  #   steps:
+  #     - name: Log job-version-changes
+  #       run: |
+  #         echo "running version changes at job level"
+  # step-version-changes:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Log step-version-changes
+  #       if: env.HAS_VERSION_CHANGE == 'true'
+  #       run: |
+  #         echo "running version changes at step level"
   
   #   - name: set VERSION_ONLY_CODE_CHANGE
   #     run: |
