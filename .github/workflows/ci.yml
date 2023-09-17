@@ -25,7 +25,8 @@ jobs:
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
         echo "0"
-        echo $CHANGED_FILES | grep "^unstructured/"
+        echo "$CHANGED_FILES" | grep ""
+        echo "$CHANGED_FILES" | grep "^unstructured/"
         echo "1"
         echo "$CHANGED_FILES" | grep "^unstructured/__version__.py"
         echo "2"
