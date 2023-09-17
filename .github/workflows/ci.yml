@@ -24,9 +24,15 @@ jobs:
         git diff --name-only ${{ github.event.before }} ${{ github.sha }}
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
-        echo "0"
+        echo "-1"
         echo "$CHANGED_FILES" | grep ""
-        echo "$CHANGED_FILES" | grep -q "^unstructured/"
+        echo "0"
+        if echo "$CHANGED_FILES" | grep -q "^unstructured/"; then
+          echo "Pattern found"
+        else
+          echo "Pattern not found"
+        fi
+        echo "$CHANGED_FILES" | grep -q "^unstructured/" && echo "true"
         echo "1"
         echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"
         echo "2"
