@@ -24,20 +24,23 @@ jobs:
         git diff --name-only ${{ github.event.before }} ${{ github.sha }}
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
-        echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/"
-        echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/__version__.py"
-        if [[ -n "$(echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/")" && ! "$(echo "${{ env.CHANGED_FILES }}" | grep -q "unstructured/__version__.py")" ]]; then
-          echo "CODE_CHANGES=true" >> $GITHUB_ENV
-        fi
+        echo "$CHANGED_FILES" | grep "^unstructured/"
+        echo "$CHANGED_FILES" | grep "^unstructured/__version__.py"
+        echo $CHANGED_FILES | grep "^unstructured/" | grep -c -v "unstructured/__version__.py"  && echo "true"
 
-        echo "${{ env.CHANGED_FILES }}" | grep "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "CODE_CHANGES=true" >> $GITHUB_ENV
-        echo "${{ env.CHANGED_FILES }}" | grep -q -c "unstructured/__version__.py" && echo "VERSION_CHANGE=true" >> $GITHUB_ENV
-        echo "${{ env.CHANGED_FILES }}" | grep -q -c "CHANGELOG.md" && echo "CHANGELOG_CHANGE=true" >> $GITHUB_ENV
-    - name: Echo filter variables
-      run: |
-        echo "CODE_CHANGES=$CODE_CHANGES"
-        echo "VERSION_CHANGE=$VERSION_CHANGE"
-        echo "CHANGELOG_CHANGE=$CHANGELOG_CHANGE"
+    #     if [[ -n "$(echo "$CHANGED_FILES" | grep -E '^unstructured/[^_].*')" ]]; then
+    #       echo "CODE_CHANGES=true" >> $GITHUB_ENV
+    #     fi
+    #     echo $env.CHANGED_FILES | grep "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "CODE_CHANGES=true"
+
+    #     echo $env.CHANGED_FILES | grep "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "CODE_CHANGES=true" >> $GITHUB_ENV
+    #     echo "${{ env.CHANGED_FILES }}" | grep -q -c "unstructured/__version__.py" && echo "VERSION_CHANGE=true" >> $GITHUB_ENV
+    #     echo "${{ env.CHANGED_FILES }}" | grep -q -c "CHANGELOG.md" && echo "CHANGELOG_CHANGE=true" >> $GITHUB_ENV
+    # - name: Echo filter variables
+    #   run: |
+    #     echo "CODE_CHANGES=$CODE_CHANGES"
+    #     echo "VERSION_CHANGE=$VERSION_CHANGE"
+    #     echo "CHANGELOG_CHANGE=$CHANGELOG_CHANGE"
 
   #   - name: set VERSION_ONLY_CODE_CHANGE
   #     run: |
