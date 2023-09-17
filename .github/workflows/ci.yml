@@ -18,7 +18,7 @@ jobs:
     - name: Checkout codes
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: 2
     - name: Assign filter variables
       run: |
         git diff --name-only ${{ github.event.before }} ${{ github.sha }}
@@ -26,27 +26,44 @@ jobs:
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
         echo "CHANGED_CODE_FILES=$CHANGED_CODE_FILES"
-        if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then CODE_CHANGES=true; fi
-        if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then VERSION_CHANGE=true; fi
-        if echo "$CHANGED_FILES" | grep -q "^CHANGELOG.md"; then CHANGELOG_CHANGE=true; fi
+        if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
+        if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then HAS_VERSION_CHANGE=true; fi
+        if echo "$CHANGED_FILES" | grep -q "^CHANGELOG.md"; then HAS_CHANGELOG_CHANGE=true; fi
         
-        echo "CODE_CHANGES=$CODE_CHANGES"
-        echo "VERSION_CHANGE=$VERSION_CHANGE"
-        echo "CHANGELOG_CHANGE=$CHANGELOG_CHANGE"
-    #     if [[ -n "$(echo "$CHANGED_FILES" | grep -E '^unstructured/[^_].*')" ]]; then
-    #       echo "CODE_CHANGES=true" >> $GITHUB_ENV
-    #     fi
-    #     echo $env.CHANGED_FILES | grep "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "CODE_CHANGES=true"
-
-    #     echo $env.CHANGED_FILES | grep "^unstructured/" | grep -q -c -v "unstructured/__version__.py"  && echo "CODE_CHANGES=true" >> $GITHUB_ENV
-    #     echo "${{ env.CHANGED_FILES }}" | grep -q -c "unstructured/__version__.py" && echo "VERSION_CHANGE=true" >> $GITHUB_ENV
-    #     echo "${{ env.CHANGED_FILES }}" | grep -q -c "CHANGELOG.md" && echo "CHANGELOG_CHANGE=true" >> $GITHUB_ENV
-    # - name: Echo filter variables
-    #   run: |
-    #     echo "CODE_CHANGES=$CODE_CHANGES"
-    #     echo "VERSION_CHANGE=$VERSION_CHANGE"
-    #     echo "CHANGELOG_CHANGE=$CHANGELOG_CHANGE"
-
+        echo "CODE_CHANGES=$HAS_CODE_CHANGES"
+        echo "VERSION_CHANGE=$HAS_VERSION_CHANGE"
+        echo "CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE"
+  job-code-changes:
+    needs: path-filters
+    runs-on: ubuntu-latest
+    if: env.HAS_CODE_CHANGES == 'true'
+    steps:
+      - name: Log job-code-changes
+        run: |
+          echo "running code changes at job level"
+  step-code-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log step-code-changes
+        if: env.HAS_CODE_CHANGES == 'true'
+        run: |
+          echo "running code changes at step level"
+  job-version-changes:
+    needs: path-filters
+    runs-on: ubuntu-latest
+    if: env.HAS_VERSION_CHANGE == 'true'
+    steps:
+      - name: Log job-version-changes
+        run: |
+          echo "running version changes at job level"
+  step-version-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log step-version-changes
+        if: env.HAS_VERSION_CHANGE == 'true'
+        run: |
+          echo "running version changes at step level"
+  
   #   - name: set VERSION_ONLY_CODE_CHANGE
   #     run: |
   #       echo ${{ steps.filter.outputs.code_files }}
