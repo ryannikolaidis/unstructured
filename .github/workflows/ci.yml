@@ -26,11 +26,7 @@ jobs:
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
         echo "CHANGED_CODE_FILES=$CHANGED_CODE_FILES"
-        echo "-1"
-        echo "$CHANGED_FILES" | grep ""
-        echo "0"
-        if echo "$CHANGED_FILES" | grep -q "^unstructured/"; then ANY_CODE_CHANGES=true && CHANGED_CODE_FILES=$(grep -q "^unstructured/"); fi
-        if $ANY_CODE_CHANGES && echo "$CHANGED_CODE_FILES" | grep -q -v "^unstructured/__version__.py"; then CODE_CHANGES=true; fi
+        if echo "$CHANGED_CODE_FILES" | grep -q -v "^unstructured/__version__.py"; then CODE_CHANGES=true; fi
         if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then VERSION_CHANGE=true; fi
         if echo "$CHANGED_FILES" | grep -q "^unstructured/CHANGELOG.md"; then CHANGELOG_CHANGE=true; fi
         
