@@ -21,9 +21,12 @@ jobs:
         fetch-depth: 0
     - name: Assign filter variables
       run: |
-        git log
-        echo "GITHUB_SHA=${{ github.sha }}"
-        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}^)
+        git log --max-count=3
+        CURRENT_COMMIT=$(git log --format="%H" -n 1)
+        LAST_COMMIT=$(git log --format="%H" -n 2 | tail -n 1)
+        echo "CURRENT_COMMIT=$CURRENT_COMMIT"
+        echo  "LAST_COMMIT=$LAST_COMMIT"
+        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $LAST_COMMIT)
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
         if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
