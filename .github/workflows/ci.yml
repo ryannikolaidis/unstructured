@@ -21,7 +21,8 @@ jobs:
         fetch-depth: 1
     - name: Assign filter variables
       run: |
-        commit_sha="${{ github.event.commits[0].id }}"
+        git rev-parse HEAD
+        commit_sha=$(git rev-parse HEAD)
         CHANGED_FILES=$(git diff --name-only $commit_sha^ $commit_sha)
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
