@@ -23,7 +23,7 @@ jobs:
       run: |
         git log
         echo "GITHUB_SHA=${{ github.sha }}"
-        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
+        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }}^)
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
         if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
