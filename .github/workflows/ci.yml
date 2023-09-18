@@ -29,7 +29,8 @@ jobs:
         if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
         if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then HAS_VERSION_CHANGE=true; fi
         if echo "$CHANGED_FILES" | grep -q "^CHANGELOG.md"; then HAS_CHANGELOG_CHANGE=true; fi
-        if [ -z "$CHANGED_FILES" ]; then echo "IS_EMPTY_COMMIT=true"; fi
+        if [ -z "$CHANGED_FILES" ]; then "IS_EMPTY_COMMIT=true"; fi
+        echo "IS_EMPTY_COMMIT=$IS_EMPTY_COMMIT"
         echo "CODE_CHANGES=$HAS_CODE_CHANGES"
         echo "VERSION_CHANGE=$HAS_VERSION_CHANGE"
         echo "CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE"
@@ -38,16 +39,13 @@ jobs:
         echo "IS_EMPTY_COMMIT=$IS_EMPTY_COMMIT" >> $GITHUB_ENV
         echo "HAS_CODE_CHANGES=$HAS_CODE_CHANGES" >> $GITHUB_ENV
         echo "HAS_VERSION_CHANGE=$HAS_VERSION_CHANGE" >> $GITHUB_ENV
-        echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV
-    - name: Log
-      run: |
-        echo "IS_EMPTY_COMMIT=${{ env.IS_EMPTY_COMMIT }}"
+        echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV 
     - name: Code Change
-      if: env.IS_EMPTY_COMMIT == 'true'
+      if: env.HAS_CODE_CHANGES == 'true' || env.IS_EMPTY_COMMIT == 'true'
       run: |
         echo "running code changes at step level"
     - name: Version Change
-      if: env.IS_EMPTY_COMMIT == 'true'
+      if: env.HAS_VERSION_CHANGE == 'true' || env.IS_EMPTY_COMMIT == 'true'
       run: |
         echo "running version changes at step level" 
 
