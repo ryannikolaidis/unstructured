@@ -40,11 +40,11 @@ jobs:
         echo "HAS_VERSION_CHANGE=$HAS_VERSION_CHANGE" >> $GITHUB_ENV
         echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV 
     - name: Code Change
-      if: env.HAS_CODE_CHANGES == 'true' || env.IS_EMPTY_COMMIT == 'true'
+      if: env.IS_EMPTY_COMMIT == 'true'
       run: |
         echo "running code changes at step level"
     - name: Version Change
-      if: env.HAS_VERSION_CHANGE == 'true' || env.IS_EMPTY_COMMIT == 'true'
+      if: env.IS_EMPTY_COMMIT == 'true'
       run: |
         echo "running version changes at step level" 
 
