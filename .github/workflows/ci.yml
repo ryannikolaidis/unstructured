@@ -22,7 +22,7 @@ jobs:
     - name: Assign filter variables
       run: |
         git diff --name-only HEAD^ HEAD
-        CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+        CHANGED_FILES=$(git diff --name-only HEAD^ HEAD)
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
         if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
