@@ -21,6 +21,8 @@ jobs:
         fetch-depth: 0
     - name: Assign filter variables
       run: |
+        git log
+        echo "GITHUB_SHA=${{ github.sha }}"
         CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
