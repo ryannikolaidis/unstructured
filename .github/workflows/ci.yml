@@ -29,7 +29,7 @@ jobs:
         if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
         if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then HAS_VERSION_CHANGE=true; fi
         if echo "$CHANGED_FILES" | grep -q "^CHANGELOG.md"; then HAS_CHANGELOG_CHANGE=true; fi
-        if [ -z "$CHANGED_FILES" ]; then "IS_EMPTY_COMMIT=true"; fi
+        if [ -z "$CHANGED_FILES" ]; then IS_EMPTY_COMMIT=true; fi
         echo "IS_EMPTY_COMMIT=$IS_EMPTY_COMMIT"
         echo "CODE_CHANGES=$HAS_CODE_CHANGES"
         echo "VERSION_CHANGE=$HAS_VERSION_CHANGE"
