@@ -18,7 +18,7 @@ jobs:
     - name: Checkout codes
       uses: actions/checkout@v4
       with:
-        fetch-depth: 1
+        fetch-depth: 0
     - name: Assign filter variables
       run: |
         git rev-parse HEAD
