@@ -21,13 +21,8 @@ jobs:
         fetch-depth: 0
     - name: Assign filter variables
       run: |
-        if [ -z "${{ github.event.before }}" ]; then
-          # Handle the case when github.event.before is null (force push)
-          CHANGED_FILES=$(git diff --name-only ${{ github.sha }} HEAD)
-        else
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-        fi
-        echo "CHANGED_FILES=$CHANGED_FILES"
+        git diff --name-only HEAD^ HEAD
+        git diff --name-only ${{ github.event.before }} ${{ github.sha }}
         CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
         echo "CHANGED_FILES=$CHANGED_FILES"
         CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
