@@ -41,7 +41,7 @@ jobs:
         echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV
     - name: Log
       run: |
-        echo "IS_EMPTY_COMMIT=${{ IS_EMPTY_COMMIT }}"
+        echo "IS_EMPTY_COMMIT=${{ env.IS_EMPTY_COMMIT }}"
     - name: Code Change
       if: env.IS_EMPTY_COMMIT == 'true'
       run: |
