@@ -42,19 +42,19 @@ jobs:
         run: |
           MESSAGE_HASH=$(echo "${{env.SLACK_MESSAGE}}" | sha256sum | cut -d ' ' -f1)
           echo "MESSAGE_HASH=$MESSAGE_HASH" >> $GITHUB_ENV
-      - name: Retrieve Messages from Cache
+      - name: Retrieve Message from Cache
         if: env.SKIP_STEPS != 'true'
         id: retrieve-cache
         uses: actions/cache@v2
         with:
-          path: messages_cache.txt
-          key: messages-cache-${{ env.MESSAGE_HASH  }}
+          path: message_cache.txt
+          key: message-cache-${{ env.MESSAGE_HASH  }}
           restore-keys: |
-            messages-cache-${{ env.MESSAGE_HASH }}
+            message-cache-${{ env.MESSAGE_HASH }}
       - name: Check for Duplicates
         if: env.SKIP_STEPS != 'true'
         run: |
-          DUPLICATE_CHECK=$(grep -Fx "${{env.SLACK_MESSAGE}}" messages_cache.txt || true)
+          DUPLICATE_CHECK=$(grep -Fx "${{env.SLACK_MESSAGE}}" message_cache.txt || true)
           echo "DUPLICATE_CHECK=$DUPLICATE_CHECK"
           if [ -n "$DUPLICATE_CHECK" ]; then
             echo "Message already posted. Skipping duplicate Slack notification."
@@ -63,14 +63,14 @@ jobs:
       - name: Write Message to Cache File
         if: env.SKIP_STEPS != 'true'
         run: |
-          echo "${{env.SLACK_MESSAGE}}" >> messages_cache.txt
-          cat messages_cache.txt
-      - name: Store Messages in Cache
+          echo "${{env.SLACK_MESSAGE}}" >> message_cache.txt
+          cat message_cache.txt
+      - name: Store Message in Cache
         if: env.SKIP_STEPS != 'true'
         uses: actions/cache/save@v3
         with:
-          path: messages_cache.txt
-          key: messages-cache-${{ env.MESSAGE_HASH }}
+          path: message_cache.txt
+          key: message-cache-${{ env.MESSAGE_HASH }}
       - name: Slack Notification
         if: env.SKIP_STEPS != 'true'
         uses: slackapi/slack-github-action@v1.24.0
