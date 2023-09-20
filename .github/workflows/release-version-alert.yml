@@ -63,7 +63,6 @@ jobs:
       - name: Write Message to Cache File
         if: env.SKIP_STEPS != 'true'
         run: |
-          if: env.SKIP_STEPS != 'true'
           echo "${{env.SLACK_MESSAGE}}" >> messages_cache.txt
           cat messages_cache.txt
             
