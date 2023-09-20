@@ -55,6 +55,7 @@ jobs:
         if: env.SKIP_STEPS != 'true'
         run: |
           DUPLICATE_CHECK=$(grep -Fx "${{env.SLACK_MESSAGE}}" messages_cache.txt || true)
+          echo "DUPLICATE_CHECK=$DUPLICATE_CHECK"
           if [ -n "$DUPLICATE_CHECK" ]; then
             echo "Message already posted. Skipping duplicate Slack notification."
             echo "SKIP_STEPS=true" >> $GITHUB_ENV  # Set an environment variable to indicate skipping steps
