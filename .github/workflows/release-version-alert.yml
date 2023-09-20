@@ -23,7 +23,6 @@ jobs:
 
       - name: Check versions
         id: check-versions
-        if: env.SKIP_STEPS != 'true'
         run: |
           CHECK_NEW_VERSION_RESPONSE=$(bash scripts/check-new-release-version.sh)
           if [[ "$CHECK_NEW_VERSION_RESPONSE" == "New release version"* ]]; then
