@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codes
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
       - name: Get PR information
         id: pr-info
         run: |
