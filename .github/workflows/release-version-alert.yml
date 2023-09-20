@@ -16,7 +16,7 @@ jobs:
       - name: Get PR information
         id: pr-info
         run: |
-          PR_NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          PR_NUMBER=$(jq --raw-output '.pull_request.number // empty' "$GITHUB_EVENT_PATH")
           HAS_PR=$(if [ -n "$PR_NUMBER" ]; then echo true; else echo false; fi)
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
           echo "HAS_PR=$HAS_PR" >> $GITHUB_ENV
