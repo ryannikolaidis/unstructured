@@ -38,6 +38,7 @@ jobs:
             echo "No new non-dev version found. Skipping Slack notification."
             echo "SKIP_STEPS=true" >> $GITHUB_ENV  # Set an environment variable to indicate skipping steps
           fi 
+          echo "SLACK_MESSAGE=$MESSAGE"
 
       - name: Slack Notification
         if: env.SKIP_STEPS != 'true'
