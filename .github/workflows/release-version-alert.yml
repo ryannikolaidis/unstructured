@@ -61,7 +61,7 @@ jobs:
             echo "SKIP_STEPS=true" >> $GITHUB_ENV  # Set an environment variable to indicate skipping steps
           fi
       - name: Write Message to Cache File
-        if: env.SKIP_STEPS != 'true'
+        if: env.SKIP_STEPS != 'true' 
         run: |
           echo "${{env.SLACK_MESSAGE}}" >> message_cache.txt
           cat message_cache.txt
