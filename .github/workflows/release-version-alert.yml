@@ -70,7 +70,7 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: messages_cache.txt
-          key: messages-cache-${{ runner.os }}-${{ env.MESSAGE_HASH }}
+          key: messages-cache-${{ env.MESSAGE_HASH }}
       - name: Slack Notification
         if: env.SKIP_STEPS != 'true'
         uses: slackapi/slack-github-action@v1.24.0
