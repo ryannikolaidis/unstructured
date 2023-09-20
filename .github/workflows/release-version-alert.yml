@@ -71,6 +71,8 @@ jobs:
         with:
           path: message_cache.txt
           key: message-cache-${{ env.MESSAGE_HASH }}
+          restore-keys: |
+            message-cache-${{ env.MESSAGE_HASH }}
       - name: Slack Notification
         if: env.SKIP_STEPS != 'true'
         uses: slackapi/slack-github-action@v1.24.0
