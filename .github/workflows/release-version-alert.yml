@@ -2,10 +2,7 @@ name: Release Version Alert
 
 on:
   pull_request:
-    branches: [ main ]
-  push:
-    branches:
-      - '*'
+    branches: [main]
       
 jobs:
   check-version:  
