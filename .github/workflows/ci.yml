@@ -2,24 +2,22 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  merge_group:
-    branches: [ main ]
 
 env:
   GHA_CACHE_KEY_VERSION: "v1"
 
 jobs:
-  path-filters:
+  check-version-bump:
     runs-on: ubuntu-latest
+    outputs:
+      only_version_bump: ${{ steps.check.outputs.ONLY_VERSION_BUMP }}
     steps:
     - name: Checkout codes
       uses: actions/checkout@v4
       with:
         fetch-depth: 2
-    - name: Assign filter variables
+    - name: Check for version bump
+      id: check
       run: |
         git log --max-count=3
         CURRENT_COMMIT=$(git log --format="%H" -n 1)
@@ -28,100 +26,22 @@ jobs:
         echo  "LAST_COMMIT=$LAST_COMMIT"
         CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $LAST_COMMIT)
         echo "CHANGED_FILES=$CHANGED_FILES"
-        CHANGED_CODE_FILES=$(echo "$CHANGED_FILES" | grep "^unstructured/" || true)
-        if [ -n "$CHANGED_CODE_FILES" ] && [ $(echo "$CHANGED_CODE_FILES" | grep -c -v "^unstructured/__version__.py") -gt 0 ]; then HAS_CODE_CHANGES=true; fi
-        if echo "$CHANGED_FILES" | grep -q "^unstructured/__version__.py"; then HAS_VERSION_CHANGE=true; fi
-        if echo "$CHANGED_FILES" | grep -q "^CHANGELOG.md"; then HAS_CHANGELOG_CHANGE=true; fi
-        if [ -z "$CHANGED_FILES" ]; then IS_EMPTY_COMMIT=true; fi
+        if echo "$CHANGED_FILES" | grep -qE '^(CHANGELOG.md|unstructured/__version__.py)(,CHANGELOG.md|,unstructured/__version__.py)*$'; then
+          echo "ONLY_VERSION_BUMP=true" >> "$GITHUB_OUTPUT"
+          echo "ONLY_VERSION_BUMP=true"
+        fi
 
-        # print to console
-        echo "IS_EMPTY_COMMIT=$IS_EMPTY_COMMIT"
-        echo "CODE_CHANGES=$HAS_CODE_CHANGES"
-        echo "VERSION_CHANGE=$HAS_VERSION_CHANGE"
-        echo "CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE"
-        
-        # export to github env
-        echo "IS_EMPTY_COMMIT=$IS_EMPTY_COMMIT" >> $GITHUB_ENV
-        echo "HAS_CODE_CHANGES=$HAS_CODE_CHANGES" >> $GITHUB_ENV
-        echo "HAS_VERSION_CHANGE=$HAS_VERSION_CHANGE" >> $GITHUB_ENV
-        echo "HAS_CHANGELOG_CHANGE=$HAS_CHANGELOG_CHANGE" >> $GITHUB_ENV 
-    - name: Code Change
-      if: env.HAS_CODE_CHANGES == 'true' || env.IS_EMPTY_COMMIT == 'true'
-      run: |
-        echo "running code changes at step level"
-    - name: Version Change
-      if: env.HAS_VERSION_CHANGE == 'true' || env.IS_EMPTY_COMMIT == 'true'
-      run: |
-        echo "running version changes at step level" 
-
-  # job-code-changes:
-  #   needs: path-filters
-  #   runs-on: ubuntu-latest
-  #   if: ${{ env.HAS_CODE_CHANGES == 'true' }}
-  #   steps:
-  #     - name: Log job-code-changes
-  #       run: |
-  #         echo "running code changes at job level"
-  # step-code-changes:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Log step-code-changes
-  #       if: env.HAS_CODE_CHANGES == 'true'
-  #       run: |
-  #         echo "running code changes at step level"
-  # job-version-changes:
-  #   needs: path-filters
-  #   runs-on: ubuntu-latest
-  #   if: env.HAS_VERSION_CHANGE == 'true'
-  #   steps:
-  #     - name: Log job-version-changes
-  #       run: |
-  #         echo "running version changes at job level"
-  # step-version-changes:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Log step-version-changes
-  #       if: env.HAS_VERSION_CHANGE == 'true'
-  #       run: |
-  #         echo "running version changes at step level"
+  setup:
+    runs-on: ubuntu-latest
+    if: needs.check-version-bump.outputs.only_version_bump != 'true'
+    steps:
+      - name: Echo
+        run: |
+          echo "has changes aside from version bump
   
-  #   - name: set VERSION_ONLY_CODE_CHANGE
-  #     run: |
-  #       echo ${{ steps.filter.outputs.code_files }}
-  #       if echo ${{ steps.filter.outputs.code_files }} | grep "unstructured/__version__.py"; then
-  #         echo "VERSION_ONLY_CODE_CHANGE=true" >> $GITHUB_ENV
-  #       fi
-  #   - name: set CODE_CHANGES # set CODE_CHANGES to true if there are changes to files in unstructured/ aside from __version__.py
-  #     if: steps.filter.outputs.code_files == 'true' && env.VERSION_ONLY_CODE_CHANGE != 'true'
-  #     run: echo "CODE_CHANGES=true" >> $GITHUB_ENV
-  #   - name: set CHANGELOG_CHANGE
-  #     if: steps.filter.outputs.changelog == 'true'
-  #     run: echo "CHANGELOG_CHANGE=true" >> $GITHUB_ENV
-  # version-no-code-skip-step:
-  #   needs: paths-filter
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Non-version code changes
-  #     if: env.CODE_CHANGES == 'true'
-  #     run: echo "running non-version code changes (STEP)"
-  # version-no-code-skip-job:
-  #   needs: paths-filter
-  #   runs-on: ubuntu-latest
-  #   if: env.CODE_CHANGES != 'true'
-  #   steps:
-  #   - name: Non-version code changes
-  #     run: echo "running non-version code changes (JOB)"
-  # version-change:
-  #   needs: paths-filter
-  #   runs-on: ubuntu-latest
-  #   # if: $env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
-  #   steps:
-  #   - name: Version change
-  #     if: env.VERSION_ONLY_CODE_CHANGE == 'true' || env.CODE_CHANGES == 'true'
-  #     run: echo "running version change"
-
-
   # setup:
+  #   needs: check-version-bump
+  #   if: needs.check-version-bump.outputs.only_version_bump != 'true'
   #   strategy:
   #     matrix:
   #       python-version: ["3.8","3.9","3.10","3.11"]
