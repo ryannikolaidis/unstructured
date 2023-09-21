@@ -1,7 +1,7 @@
 name: Release Version Alert
 
 on:
-  pull_request:
+  pull_request: 
     branches: [main]
       
 jobs:
