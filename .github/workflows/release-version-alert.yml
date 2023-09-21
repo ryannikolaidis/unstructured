@@ -1,11 +1,14 @@
 name: Release Version Alert
 
 on:
-  pull_request: 
-    branches: [main]
+  pull_request:
+    branches: [ main ] 
+  push:
+    branches:
+      - '*'
       
 jobs:
-  check-version:   
+  check-version:  
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codes
