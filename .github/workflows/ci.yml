@@ -2,6 +2,9 @@ name: CI
 
 on:
   push:
+    paths-ignore:
+      - 'unstructured/__version__.py'
+      - 'CHANGELOG.md'
 
 env:
   GHA_CACHE_KEY_VERSION: "v1"
@@ -16,20 +19,28 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v39
     - name: Check for version bump
       id: check
       run: |
-        git log --max-count=3
-        CURRENT_COMMIT=$(git log --format="%H" -n 1)
-        LAST_COMMIT=$(git log --format="%H" -n 2 | tail -n 1)
-        echo "CURRENT_COMMIT=$CURRENT_COMMIT"
-        echo  "LAST_COMMIT=$LAST_COMMIT"
-        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $CURRENT_COMMIT)
-        echo "CHANGED_FILES=$CHANGED_FILES"
-        if echo "$CHANGED_FILES" | grep -qE '^(CHANGELOG.md|unstructured/__version__.py)(,CHANGELOG.md|,unstructured/__version__.py)*$'; then
-          echo "ONLY_VERSION_BUMP=true" >> "$GITHUB_OUTPUT"
-          echo "ONLY_VERSION_BUMP=true"
-        fi
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          if [[ "$file" != "CHANGELOG.md" && "$file" != "unstructured/__version__.py" ]]; then
+            exit 0
+          fi
+        done
+        echo "ONLY_VERSION_BUMP=true" >> "$GITHUB_OUTPUT"
+        echo "ONLY_VERSION_BUMP=true"
+        # git log --max-count=3
+        # CURRENT_COMMIT=$(git log --format="%H" -n 1)
+        # echo "CURRENT_COMMIT=$CURRENT_COMMIT"
+        # CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $CURRENT_COMMIT)
+        # echo "CHANGED_FILES=$CHANGED_FILES"
+        # if echo "$CHANGED_FILES" | grep -qE '^(CHANGELOG.md|unstructured/__version__.py)(,CHANGELOG.md|,unstructured/__version__.py)*$'; then
+        #   echo "ONLY_VERSION_BUMP=true" >> "$GITHUB_OUTPUT"
+        #   echo "ONLY_VERSION_BUMP=true"
+        # fi
 
   echo:
     runs-on: ubuntu-latest
