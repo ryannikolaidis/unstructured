@@ -24,7 +24,7 @@ jobs:
         LAST_COMMIT=$(git log --format="%H" -n 2 | tail -n 1)
         echo "CURRENT_COMMIT=$CURRENT_COMMIT"
         echo  "LAST_COMMIT=$LAST_COMMIT"
-        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $LAST_COMMIT)
+        CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r $CURRENT_COMMIT)
         echo "CHANGED_FILES=$CHANGED_FILES"
         if echo "$CHANGED_FILES" | grep -qE '^(CHANGELOG.md|unstructured/__version__.py)(,CHANGELOG.md|,unstructured/__version__.py)*$'; then
           echo "ONLY_VERSION_BUMP=true" >> "$GITHUB_OUTPUT"
