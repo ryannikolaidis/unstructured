@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Echo
         run: |
-          echo "has changes aside from version bump
+          echo "has changes aside from version bump"
   
   # setup:
   #   needs: check-version-bump
