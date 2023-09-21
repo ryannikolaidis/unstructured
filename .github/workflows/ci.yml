@@ -31,7 +31,7 @@ jobs:
           echo "ONLY_VERSION_BUMP=true"
         fi
 
-  setup:
+  echo:
     runs-on: ubuntu-latest
     needs: check-version-bump
     if: needs.check-version-bump.outputs.only_version_bump != 'true'
