@@ -9,7 +9,7 @@ on:
       - '*'
       
 jobs:
-  check-version:
+  check-version: 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codes
