@@ -33,6 +33,7 @@ jobs:
 
   setup:
     runs-on: ubuntu-latest
+    needs: check-version-bump
     if: needs.check-version-bump.outputs.only_version_bump != 'true'
     steps:
       - name: Echo
