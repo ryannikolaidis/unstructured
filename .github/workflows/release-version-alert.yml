@@ -2,8 +2,7 @@ name: Release Version Alert
 
 on:
   pull_request:
-    branches: [ main ] 
-    types: [opened]
+    branches: [ main ]
   push:
     branches:
       - '*'
